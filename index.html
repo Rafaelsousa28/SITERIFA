@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+const percentage = ((<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -42,42 +42,74 @@
 
     /* Header */
     header {
-        background: rgba(0, 0, 0, 0.95);
+        background: rgba(0, 0, 0, 0.98);
         backdrop-filter: blur(20px);
-        border-bottom: 2px solid var(--primary-green);
         position: fixed;
         width: 100%;
         top: 0;
         z-index: 1000;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--primary-green), transparent);
+        animation: slideGradient 3s ease-in-out infinite;
+    }
+
+    @keyframes slideGradient {
+        0%, 100% {
+            transform: translateX(-100%);
+        }
+        50% {
+            transform: translateX(100%);
+        }
     }
 
     nav {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        padding: 1rem 0;
-        gap: 2rem;
+        padding: 1.2rem 0;
+        position: relative;
     }
 
     .nav-left {
         display: flex;
-        gap: 2rem;
+        gap: 2.5rem;
         list-style: none;
+        flex: 1;
     }
 
     .logo {
-        font-size: 2rem;
+        font-size: 2.2rem;
         font-weight: 900;
-        color: var(--primary-green);
-        text-shadow: 0 2px 10px rgba(0, 200, 81, 0.3);
-        text-align: center;
+        background: linear-gradient(45deg, var(--primary-green), var(--light-green));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(0, 200, 81, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+        transform: scale(1.05);
     }
 
     .nav-right {
         display: flex;
         justify-content: flex-end;
         gap: 1rem;
+        flex: 1;
     }
 
     .nav-left a, .nav-right a {
@@ -86,13 +118,29 @@
         font-weight: 500;
         transition: all 0.3s ease;
         position: relative;
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1.2rem;
         border-radius: 25px;
+        overflow: hidden;
+    }
+
+    .nav-left a::before, .nav-right a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 200, 81, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .nav-left a:hover::before, .nav-right a:hover::before {
+        left: 100%;
     }
 
     .nav-left a:hover, .nav-right a:hover {
         color: var(--primary-green);
-        background: rgba(0, 200, 81, 0.1);
+        transform: translateY(-2px);
     }
 
     .contact-btn {
@@ -394,15 +442,29 @@
 
     .campaign-image {
         width: 100%;
-        height: 180px;
+        height: 200px;
         background: linear-gradient(45deg, var(--primary-green), var(--light-green));
         border-radius: 15px;
         margin-bottom: 1.5rem;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .campaign-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .campaign-image .default-icon {
+        width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2.5rem;
+        font-size: 4rem;
         color: var(--white);
+        background: linear-gradient(45deg, var(--primary-green), var(--light-green));
     }
 
     .campaign-title {
@@ -976,6 +1038,8 @@
         padding: 0.8rem;
         background: var(--white);
         border-radius: 10px;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
 
     .awarded-prize {
@@ -1023,6 +1087,17 @@
         display: flex;
         align-items: center;
         gap: 0.3rem;
+    }
+
+    @media (max-width: 480px) {
+        .awarded-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .awarded-prize {
+            margin-bottom: 0.5rem;
+        }
     }
 
     /* Surprise Numbers Message */
@@ -1309,9 +1384,96 @@
         animation: fadeInUp 0.8s ease;
     }
 
+    /* Responsive Admin Tables */
+    @media (max-width: 768px) {
+        .admin-table {
+            font-size: 0.9rem;
+        }
+        
+        .admin-table th,
+        .admin-table td {
+            padding: 0.5rem;
+        }
+        
+        .admin-table .mobile-hide {
+            display: none;
+        }
+        
+        .sales-table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .admin-panel {
+            padding: 1rem;
+        }
+        
+        .admin-tabs {
+            gap: 0.5rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .admin-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .admin-tab {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .admin-table {
+            font-size: 0.8rem;
+        }
+        
+        .admin-table thead {
+            display: none;
+        }
+        
+        .admin-table tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+        
+        .admin-table td {
+            display: block;
+            text-align: left;
+            padding: 0.5rem 0;
+            border: none;
+        }
+        
+        .admin-table td::before {
+            content: attr(data-label);
+            font-weight: 600;
+            display: inline-block;
+            width: 120px;
+            color: var(--primary-green);
+        }
+    }
+
+    /* Admin Login Modal */
+    .admin-login-form {
+        text-align: center;
+    }
+
+    .admin-login-form h3 {
+        color: var(--primary-green);
+        margin-bottom: 1.5rem;
+    }
+
     /* Responsive */
     @media (max-width: 968px) {
         nav {
+            display: grid;
             grid-template-columns: auto 1fr auto;
         }
         
@@ -1432,7 +1594,7 @@
             <li><a href="#" onclick="showPage('terms')">Termos de Uso</a></li>
         </ul>
         
-        <div class="logo">🎲 RifaMax</div>
+        <div class="logo" onclick="showPage('home')">🎲 RifaMax</div>
         
         <div class="nav-right">
             <a href="#" onclick="showPage('contact')" class="contact-btn">Contato</a>
@@ -1763,7 +1925,7 @@
         <p>&copy; 2025 RifaMax. Todos os direitos reservados.</p>
         <p>Contato: (11) 99999-9999 | contato@rifamax.com.br</p>
         <div style="margin-top: 1rem;">
-            <button onclick="showPage('admin')" style="background: none; border: 1px solid var(--primary-green); color: var(--primary-green); padding: 0.3rem 1rem; border-radius: 15px; cursor: pointer; font-size: 0.8rem;">Acesso Admin</button>
+            <button onclick="requestAdminAccess()" style="background: none; border: 1px solid var(--primary-green); color: var(--primary-green); padding: 0.3rem 1rem; border-radius: 15px; cursor: pointer; font-size: 0.8rem;">Acesso Admin</button>
         </div>
     </div>
 </footer>
@@ -1969,6 +2131,28 @@
     </div>
 </div>
 
+<!-- Admin Login Modal -->
+<div class="modal" id="adminLoginModal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Acesso Administrativo</h2>
+            <button class="close-modal" onclick="closeModal('adminLoginModal')">✕</button>
+        </div>
+        <form onsubmit="adminLogin(event)" class="admin-login-form">
+            <h3>🔐 Área Restrita</h3>
+            <div class="form-group">
+                <label for="adminEmail">Email:</label>
+                <input type="email" id="adminEmail" placeholder="admin@rifamax.com" required>
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">Senha:</label>
+                <input type="password" id="adminPassword" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="submit-btn">Entrar</button>
+        </form>
+    </div>
+</div>
+
 <script>
     // Variáveis globais
     let currentUser = null;
@@ -1976,6 +2160,13 @@
     let selectedQuantity = 1;
     let selectedNumbers = [];
     let selectedPaymentMethod = null;
+    let isAdminAuthenticated = false;
+
+    // Credenciais do admin
+    const ADMIN_CREDENTIALS = {
+        email: 'rafaelsousaooficial@gmail.com',
+        password: 'as12345'
+    };
 
     // Base de dados (simulando backend)
     let raffleDatabase = {
@@ -1986,7 +2177,7 @@
 
     // Inicializar com algumas rifas de exemplo
     function initializeDatabase() {
-        // Rifas de exemplo
+        // Rifas de exemplo com URLs de imagem
         raffleDatabase.raffles = [
             {
                 id: 1,
@@ -1997,6 +2188,7 @@
                 description: 'Concorra a um Honda Civic 0KM! Sorteio com auditoria independente.',
                 drawDate: '2025-05-30',
                 icon: '🚗',
+                imageUrl: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&h=600&fit=crop',
                 isHighlight: true,
                 status: 'active',
                 createdAt: new Date('2025-04-01'),
@@ -2023,6 +2215,7 @@
                 description: 'iPhone 15 Pro Max 256GB - Lacrado com garantia Apple!',
                 drawDate: '2025-05-28',
                 icon: '📱',
+                imageUrl: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=800&h=600&fit=crop',
                 isHighlight: false,
                 status: 'active',
                 createdAt: new Date('2025-04-10'),
@@ -2046,6 +2239,7 @@
                 description: 'R$ 10.000 em dinheiro via PIX! Sorteio pela Loteria Federal.',
                 drawDate: '2025-05-25',
                 icon: '💰',
+                imageUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop',
                 isHighlight: false,
                 status: 'active',
                 createdAt: new Date('2025-04-05'),
@@ -2068,6 +2262,7 @@
                 description: 'TV Samsung 65" QLED 4K com garantia de 2 anos',
                 drawDate: '2025-04-15',
                 icon: '📺',
+                imageUrl: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=800&h=600&fit=crop',
                 isHighlight: false,
                 status: 'finished',
                 createdAt: new Date('2025-03-01'),
@@ -2122,6 +2317,12 @@
 
     // Funções de navegação
     function showPage(pageId) {
+        // Verificar autenticação para admin
+        if (pageId === 'admin' && !isAdminAuthenticated) {
+            openAdminLoginModal();
+            return;
+        }
+        
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
         });
@@ -2144,6 +2345,27 @@
         }
         
         window.scrollTo(0, 0);
+    }
+
+    // Admin Login
+    function openAdminLoginModal() {
+        document.getElementById('adminLoginModal').classList.add('active');
+    }
+
+    function adminLogin(event) {
+        event.preventDefault();
+        
+        const email = document.getElementById('adminEmail').value;
+        const password = document.getElementById('adminPassword').value;
+        
+        if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+            isAdminAuthenticated = true;
+            closeModal('adminLoginModal');
+            showPage('admin');
+            alert('Login administrativo realizado com sucesso!');
+        } else {
+            alert('Email ou senha incorretos!');
+        }
     }
 
     // Funções de navegação mobile
@@ -2562,18 +2784,18 @@
             
             return `
                 <tr>
-                    <td>#${raffle.id}</td>
-                    <td>${raffle.icon} ${raffle.title}</td>
-                    <td>R$ ${raffle.price.toFixed(2).replace('.', ',')}</td>
-                    <td>${raffle.soldNumbers.length}</td>
-                    <td>${raffle.totalNumbers}</td>
-                    <td>R$ ${revenue.toFixed(2).replace('.', ',')}</td>
-                    <td>
+                    <td data-label="ID">#${raffle.id}</td>
+                    <td data-label="Título">${raffle.icon} ${raffle.title}</td>
+                    <td data-label="Preço">R$ ${raffle.price.toFixed(2).replace('.', ',')}</td>
+                    <td data-label="Vendidos" class="mobile-hide">${raffle.soldNumbers.length}</td>
+                    <td data-label="Total" class="mobile-hide">${raffle.totalNumbers}</td>
+                    <td data-label="Arrecadado">R$ ${revenue.toFixed(2).replace('.', ',')}</td>
+                    <td data-label="Status">
                         <span class="status-badge ${raffle.status === 'active' ? 'status-active' : 'status-finished'}">
                             ${raffle.status === 'active' ? 'Ativa' : 'Finalizada'} (${percentage}%)
                         </span>
                     </td>
-                    <td>
+                    <td data-label="Ações">
                         <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;" 
                                 onclick="viewRaffleDetails(${raffle.id})">
                             Ver Detalhes
@@ -2753,7 +2975,9 @@
                 <div class="main-raffle-card">
                     <div class="main-raffle-badge">DESTAQUE</div>
                     ${mainRaffle.imageUrl ? 
-                        `<img src="${mainRaffle.imageUrl}" alt="${mainRaffle.title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 20px; margin-bottom: 2rem;">` :
+                        `<div class="campaign-image" style="height: 300px;">
+                            <img src="${mainRaffle.imageUrl}" alt="${mainRaffle.title}" onerror="this.parentElement.innerHTML='<div class=\\'default-icon\\'>${mainRaffle.icon}</div>'">
+                        </div>` :
                         `<div class="main-raffle-image">${mainRaffle.icon}</div>`
                     }
                     <h3 class="main-raffle-title">${mainRaffle.title}</h3>
@@ -2783,10 +3007,12 @@
             
             return `
                 <div class="campaign-card fade-in ${isFinished ? 'finished' : ''}">
-                    ${raffle.imageUrl ? 
-                        `<img src="${raffle.imageUrl}" alt="${raffle.title}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 1.5rem;">` :
-                        `<div class="campaign-image">${raffle.icon}</div>`
-                    }
+                    <div class="campaign-image">
+                        ${raffle.imageUrl ? 
+                            `<img src="${raffle.imageUrl}" alt="${raffle.title}" onerror="this.parentElement.innerHTML='<div class=\\'default-icon\\'>${raffle.icon}</div>'">` :
+                            `<div class="default-icon">${raffle.icon}</div>`
+                        }
+                    </div>
                     <h3 class="campaign-title">${raffle.title}</h3>
                     <div class="campaign-price">R$ ${raffle.price.toFixed(2).replace('.', ',')}</div>
                     <div class="campaign-info">
@@ -2936,6 +3162,15 @@
     window.addEventListener('load', () => {
         setTimeout(updateProgressBars, 1000);
     });
+
+    // Função para requisitar acesso admin
+    function requestAdminAccess() {
+        if (!isAdminAuthenticated) {
+            openAdminLoginModal();
+        } else {
+            showPage('admin');
+        }
+    }
 
     // Fechar modal ao clicar fora
     window.addEventListener('click', (e) => {
