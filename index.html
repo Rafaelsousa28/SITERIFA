@@ -510,6 +510,39 @@
         margin: 2rem 0;
     }
 
+    .admin-tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 1rem;
+    }
+
+    .admin-tab {
+        background: none;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .admin-tab.active {
+        background: var(--primary-green);
+        color: var(--white);
+    }
+
+    .admin-content {
+        display: none;
+    }
+
+    .admin-content.active {
+        display: block;
+    }
+
     .admin-stats {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -571,6 +604,20 @@
         color: var(--danger);
     }
 
+    /* Create Raffle Form */
+    .create-raffle-form {
+        background: var(--light-gray);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-top: 2rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
     /* Contact Form */
     .contact-form {
         background: var(--white);
@@ -593,7 +640,8 @@
     }
 
     .form-group input,
-    .form-group textarea {
+    .form-group textarea,
+    .form-group select {
         width: 100%;
         padding: 1rem;
         border: 2px solid var(--border-color);
@@ -603,7 +651,8 @@
     }
 
     .form-group input:focus,
-    .form-group textarea:focus {
+    .form-group textarea:focus,
+    .form-group select:focus {
         outline: none;
         border-color: var(--primary-green);
     }
@@ -976,12 +1025,72 @@
         gap: 0.3rem;
     }
 
+    /* Surprise Numbers Message */
+    .surprise-message {
+        background: rgba(0, 200, 81, 0.1);
+        border: 2px solid var(--primary-green);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1rem 0;
+        text-align: center;
+    }
+
+    .surprise-message h4 {
+        color: var(--primary-green);
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+    }
+
+    .surprise-message p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .surprise-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Payment Success */
+    .payment-success {
+        background: rgba(0, 200, 81, 0.1);
+        border: 2px solid var(--primary-green);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 1rem 0;
+        text-align: center;
+    }
+
+    .success-icon {
+        font-size: 4rem;
+        color: var(--primary-green);
+        margin-bottom: 1rem;
+    }
+
+    .success-numbers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    .success-number {
+        background: var(--primary-green);
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
     /* Selected Numbers */
     .selected-numbers {
         background: var(--light-gray);
         border-radius: 10px;
         padding: 1rem;
         margin: 1rem 0;
+        display: none;
     }
 
     .selected-numbers h4 {
@@ -1130,6 +1239,51 @@
         gap: 1rem;
     }
 
+    /* Sales Details Modal */
+    .sales-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    .sales-table th,
+    .sales-table td {
+        padding: 0.8rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .sales-table th {
+        background: var(--light-gray);
+        font-weight: 600;
+    }
+
+    .sales-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .summary-item {
+        background: var(--light-gray);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .summary-label {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.3rem;
+    }
+
+    .summary-value {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--primary-green);
+    }
+
     /* Footer */
     footer {
         background: var(--black);
@@ -1176,6 +1330,10 @@
         .nav-right {
             grid-column: 3;
             display: flex;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
         }
     }
 
@@ -1224,6 +1382,10 @@
         .ranking-list {
             flex-direction: column;
             gap: 1.5rem;
+        }
+        
+        .admin-tabs {
+            flex-wrap: wrap;
         }
     }
 
@@ -1316,19 +1478,8 @@
         <section class="main-raffle">
             <div class="container">
                 <h2 class="page-title">🔥 Rifa Principal</h2>
-                <div class="main-raffle-card">
-                    <div class="main-raffle-badge">DESTAQUE</div>
-                    <div class="main-raffle-image">🚗</div>
-                    <h3 class="main-raffle-title">Carro 0KM - Honda Civic</h3>
-                    <div class="main-raffle-price">R$ 25,00</div>
-                    <div class="campaign-info">
-                        <span><strong>Vendidos:</strong> 340/500</span>
-                        <span><strong>Sorteio:</strong> 30/05/2025</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 68%"></div>
-                    </div>
-                    <button class="buy-button" onclick="openPurchaseModal('Carro 0KM - Honda Civic', 25.00, 500, 340)">Comprar Números</button>
+                <div id="mainRaffleContainer">
+                    <!-- Será preenchido dinamicamente -->
                 </div>
             </div>
         </section>
@@ -1337,108 +1488,8 @@
         <section class="other-campaigns">
             <div class="container">
                 <h2 class="page-title">Outras Campanhas</h2>
-                <div class="campaigns-grid">
-                    <div class="campaign-card fade-in">
-                        <div class="campaign-image">📱</div>
-                        <h3 class="campaign-title">iPhone 15 Pro Max</h3>
-                        <div class="campaign-price">R$ 15,00</div>
-                        <div class="campaign-info">
-                            <span>Vendidos: 180/300</span>
-                            <span>Sorteio: 28/05/2025</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 60%"></div>
-                        </div>
-                        <button class="buy-button" onclick="openPurchaseModal('iPhone 15 Pro Max', 15.00, 300, 180)">Comprar Números</button>
-                    </div>
-
-                    <div class="campaign-card fade-in">
-                        <div class="campaign-image">💰</div>
-                        <h3 class="campaign-title">R$ 10.000 em Dinheiro</h3>
-                        <div class="campaign-price">R$ 10,00</div>
-                        <div class="campaign-info">
-                            <span>Vendidos: 890/1000</span>
-                            <span>Sorteio: 25/05/2025</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 89%"></div>
-                        </div>
-                        <button class="buy-button" onclick="openPurchaseModal('R$ 10.000 em Dinheiro', 10.00, 1000, 890)">Comprar Números</button>
-                    </div>
-
-                    <div class="campaign-card fade-in finished">
-                        <div class="campaign-image">📺</div>
-                        <h3 class="campaign-title">TV Samsung 65" QLED</h3>
-                        <div class="campaign-price">R$ 18,00</div>
-                        <div class="campaign-info">
-                            <span>Finalizada</span>
-                            <span>Sorteio: 15/04/2025</span>
-                        </div>
-                        <div class="winner-info">
-                            <h4>🎉 Ganhador:</h4>
-                            <p><strong>Fernanda M.</strong></p>
-                            <p class="winner-number">Nº 0198</p>
-                        </div>
-                        <button class="buy-button" disabled>Rifa Finalizada</button>
-                    </div>
-
-                    <div class="campaign-card fade-in">
-                        <div class="campaign-image">🏠</div>
-                        <h3 class="campaign-title">Casa de R$ 500.000</h3>
-                        <div class="campaign-price">R$ 50,00</div>
-                        <div class="campaign-info">
-                            <span>Vendidos: 45/200</span>
-                            <span>Sorteio: 15/06/2025</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 22%"></div>
-                        </div>
-                        <button class="buy-button" onclick="openPurchaseModal('Casa de R$ 500.000', 50.00, 200, 45)">Comprar Números</button>
-                    </div>
-
-                    <div class="campaign-card fade-in">
-                        <div class="campaign-image">🏍️</div>
-                        <h3 class="campaign-title">Moto Honda CBR 600</h3>
-                        <div class="campaign-price">R$ 20,00</div>
-                        <div class="campaign-info">
-                            <span>Vendidos: 67/150</span>
-                            <span>Sorteio: 10/06/2025</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 45%"></div>
-                        </div>
-                        <button class="buy-button" onclick="openPurchaseModal('Moto Honda CBR 600', 20.00, 150, 67)">Comprar Números</button>
-                    </div>
-
-                    <div class="campaign-card fade-in finished">
-                        <div class="campaign-image">💎</div>
-                        <h3 class="campaign-title">Joia de R$ 25.000</h3>
-                        <div class="campaign-price">R$ 30,00</div>
-                        <div class="campaign-info">
-                            <span>Finalizada</span>
-                            <span>Sorteio: 20/03/2025</span>
-                        </div>
-                        <div class="winner-info">
-                            <h4>🎉 Ganhador:</h4>
-                            <p><strong>Roberto S.</strong></p>
-                            <p class="winner-number">Nº 0089</p>
-                        </div>
-                        <button class="buy-button" disabled>Rifa Finalizada</button>
-                    </div>
-
-                    <div class="campaign-card fade-in">
-                        <div class="campaign-image">🎮</div>
-                        <h3 class="campaign-title">PlayStation 5 Pro</h3>
-                        <div class="campaign-price">R$ 12,00</div>
-                        <div class="campaign-info">
-                            <span>Vendidos: 134/200</span>
-                            <span>Sorteio: 02/06/2025</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 67%"></div>
-                        </div>
-                        <button class="buy-button" onclick="openPurchaseModal('PlayStation 5 Pro', 12.00, 200, 134)">Comprar Números</button>
-                    </div>
+                <div class="campaigns-grid" id="campaignsGrid">
+                    <!-- Será preenchido dinamicamente -->
                 </div>
             </div>
         </section>
@@ -1450,80 +1501,135 @@
             <h2 class="page-title">🔧 Painel Administrativo</h2>
             
             <div class="admin-panel">
-                <div class="admin-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">R$ 127.350</div>
-                        <div class="stat-label">Vendas Totais</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">1.847</div>
-                        <div class="stat-label">Números Vendidos</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">456</div>
-                        <div class="stat-label">Clientes Ativos</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">7</div>
-                        <div class="stat-label">Rifas Ativas</div>
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="showAdminTab('dashboard')">Dashboard</button>
+                    <button class="admin-tab" onclick="showAdminTab('raffles')">Gerenciar Rifas</button>
+                    <button class="admin-tab" onclick="showAdminTab('sales')">Vendas</button>
+                    <button class="admin-tab" onclick="showAdminTab('create')">Criar Nova Rifa</button>
+                </div>
+
+                <!-- Dashboard -->
+                <div class="admin-content active" id="admin-dashboard">
+                    <div class="admin-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalSales">R$ 0</div>
+                            <div class="stat-label">Vendas Totais</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalTickets">0</div>
+                            <div class="stat-label">Números Vendidos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalCustomers">0</div>
+                            <div class="stat-label">Clientes Ativos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="activeRaffles">0</div>
+                            <div class="stat-label">Rifas Ativas</div>
+                        </div>
                     </div>
                 </div>
 
-                <h3>Gestão de Rifas</h3>
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Rifa</th>
-                            <th>Preço</th>
-                            <th>Vendidos</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Carro 0KM - Honda Civic</td>
-                            <td>R$ 25,00</td>
-                            <td>340</td>
-                            <td>500</td>
-                            <td><span class="status-badge status-active">Ativa</span></td>
-                            <td>
-                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Gerenciar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>iPhone 15 Pro Max</td>
-                            <td>R$ 15,00</td>
-                            <td>180</td>
-                            <td>300</td>
-                            <td><span class="status-badge status-active">Ativa</span></td>
-                            <td>
-                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Gerenciar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>R$ 10.000 em Dinheiro</td>
-                            <td>R$ 10,00</td>
-                            <td>890</td>
-                            <td>1000</td>
-                            <td><span class="status-badge status-active">Ativa</span></td>
-                            <td>
-                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Gerenciar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>TV Samsung 65"</td>
-                            <td>R$ 18,00</td>
-                            <td>250</td>
-                            <td>250</td>
-                            <td><span class="status-badge status-finished">Finalizada</span></td>
-                            <td>
-                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Ver Resultado</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- Gerenciar Rifas -->
+                <div class="admin-content" id="admin-raffles">
+                    <h3>Rifas Ativas</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Preço</th>
+                                <th>Vendidos</th>
+                                <th>Total</th>
+                                <th>Arrecadado</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rafflesTableBody">
+                            <!-- Será preenchido dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Vendas -->
+                <div class="admin-content" id="admin-sales">
+                    <h3>Últimas Vendas</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Data/Hora</th>
+                                <th>Cliente</th>
+                                <th>Rifa</th>
+                                <th>Números</th>
+                                <th>Valor</th>
+                                <th>Pagamento</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody">
+                            <!-- Será preenchido dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Criar Nova Rifa -->
+                <div class="admin-content" id="admin-create">
+                    <h3>Criar Nova Rifa</h3>
+                    <form class="create-raffle-form" onsubmit="createRaffle(event)">
+                        <div class="form-group">
+                            <label for="raffleTitle">Título da Rifa:</label>
+                            <input type="text" id="raffleTitle" required placeholder="Ex: iPhone 15 Pro Max">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="rafflePrice">Valor por Cota (R$):</label>
+                                <input type="number" id="rafflePrice" step="0.01" min="0.01" required placeholder="Ex: 15.00">
+                            </div>
+                            <div class="form-group">
+                                <label for="raffleTotalNumbers">Total de Cotas:</label>
+                                <input type="number" id="raffleTotalNumbers" min="1" required placeholder="Ex: 1000">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="raffleDescription">Descrição/Regulamento:</label>
+                            <textarea id="raffleDescription" required placeholder="Descreva o prêmio e as regras da rifa"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="raffleDrawDate">Data do Sorteio:</label>
+                                <input type="date" id="raffleDrawDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="raffleIcon">Ícone (Emoji):</label>
+                                <input type="text" id="raffleIcon" placeholder="Ex: 📱" maxlength="2">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="raffleImage">URL da Imagem (opcional):</label>
+                            <input type="url" id="raffleImage" placeholder="https://exemplo.com/imagem.jpg">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cotas Premiadas (opcional)</label>
+                            <div id="awardedCotasContainer">
+                                <button type="button" class="submit-btn" style="width: auto; margin-bottom: 1rem;" onclick="addAwardedCota()">+ Adicionar Cota Premiada</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="raffleHighlight"> Destacar como Rifa Principal
+                            </label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Criar Rifa</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -1533,51 +1639,8 @@
         <div class="container">
             <h2 class="page-title">🏆 Ganhadores</h2>
             
-            <div class="winners-list">
-                <div class="winner-card">
-                    <div class="winner-prize">🚗 Carro Chevrolet Onix 0KM</div>
-                    <div class="winner-info">
-                        <strong>Ganhador:</strong> Maria S. (Email: m***a@gmail.com)<br>
-                        <strong>Número:</strong> 0247 | <strong>Data:</strong> 15/04/2025<br>
-                        <strong>Rifa:</strong> #RF001 | <strong>Valor do Prêmio:</strong> R$ 70.000,00
-                    </div>
-                </div>
-
-                <div class="winner-card">
-                    <div class="winner-prize">📱 iPhone 14 Pro Max</div>
-                    <div class="winner-info">
-                        <strong>Ganhador:</strong> João P. (Email: j***o@hotmail.com)<br>
-                        <strong>Número:</strong> 0156 | <strong>Data:</strong> 08/04/2025<br>
-                        <strong>Rifa:</strong> #RF002 | <strong>Valor do Prêmio:</strong> R$ 8.500,00
-                    </div>
-                </div>
-
-                <div class="winner-card">
-                    <div class="winner-prize">💰 R$ 50.000 em Dinheiro</div>
-                    <div class="winner-info">
-                        <strong>Ganhador:</strong> Ana C. (Email: a***a@outlook.com)<br>
-                        <strong>Número:</strong> 0789 | <strong>Data:</strong> 25/03/2025<br>
-                        <strong>Rifa:</strong> #RF003 | <strong>Valor do Prêmio:</strong> R$ 50.000,00
-                    </div>
-                </div>
-
-                <div class="winner-card">
-                    <div class="winner-prize">🏍️ Moto Honda CB 600F</div>
-                    <div class="winner-info">
-                        <strong>Ganhador:</strong> Carlos R. (Email: c***s@gmail.com)<br>
-                        <strong>Número:</strong> 0023 | <strong>Data:</strong> 12/03/2025<br>
-                        <strong>Rifa:</strong> #RF004 | <strong>Valor do Prêmio:</strong> R$ 35.000,00
-                    </div>
-                </div>
-
-                <div class="winner-card">
-                    <div class="winner-prize">📺 TV Samsung 65" QLED</div>
-                    <div class="winner-info">
-                        <strong>Ganhador:</strong> Fernanda M. (Email: f***a@yahoo.com)<br>
-                        <strong>Número:</strong> 0198 | <strong>Data:</strong> 28/02/2025<br>
-                        <strong>Rifa:</strong> #RF005 | <strong>Valor do Prêmio:</strong> R$ 6.000,00
-                    </div>
-                </div>
+            <div class="winners-list" id="winnersList">
+                <!-- Será preenchido dinamicamente -->
             </div>
         </div>
     </div>
@@ -1738,8 +1801,17 @@
         <div class="description-section">
             <h4>DESCRIÇÃO / REGULAMENTO</h4>
             <p id="raffleDescription">
-                RANK PARA QUEM COMPRAR MAIS BILHETES LEVA 300 R$ ✅💰<br>
-                Qualquer problema com sua compra, chamar direct ou WhatsApp (38) 991039198
+                <!-- Será preenchido dinamicamente -->
+            </p>
+        </div>
+
+        <!-- Mensagem de Números Surpresa -->
+        <div class="surprise-message">
+            <div class="surprise-icon">🎁</div>
+            <h4>Números Surpresa!</h4>
+            <p>
+                Os números da sua cota serão revelados apenas após a confirmação do pagamento.<br>
+                Isso torna a experiência ainda mais emocionante!
             </p>
         </div>
 
@@ -1767,80 +1839,16 @@
         <!-- Ranking -->
         <div class="ranking-section">
             <h4 class="ranking-title">RANKING</h4>
-            <div class="ranking-list">
-                <div class="ranking-item">
-                    <div class="ranking-medal">🥇</div>
-                    <div class="ranking-name">Thiago Gonçalves de Souza</div>
-                    <div class="ranking-cotas"><strong>3.475</strong> cotas</div>
-                </div>
-                <div class="ranking-item">
-                    <div class="ranking-medal">🥈</div>
-                    <div class="ranking-name">Caio jardim</div>
-                    <div class="ranking-cotas"><strong>2.809</strong> cotas</div>
-                </div>
-                <div class="ranking-item">
-                    <div class="ranking-medal">🥉</div>
-                    <div class="ranking-name">Jefão</div>
-                    <div class="ranking-cotas"><strong>1.800</strong> cotas</div>
-                </div>
+            <div class="ranking-list" id="rankingList">
+                <!-- Será preenchido dinamicamente -->
             </div>
         </div>
 
         <!-- Cotas Premiadas -->
-        <div class="awarded-cotas">
+        <div class="awarded-cotas" id="awardedCotasSection" style="display: none;">
             <h4 class="awarded-title">COTA PREMIADA</h4>
-            <div class="awarded-list">
-                <div class="awarded-item">
-                    <div class="awarded-prize">
-                        <span class="prize-label">Prêmio - 50 R$</span>
-                    </div>
-                    <span class="cota-status cota-sold">Comprado</span>
-                    <span class="cota-number">Cota 00157</span>
-                    <span class="user-tag">👤 Jefão</span>
-                </div>
-                <div class="awarded-item">
-                    <div class="awarded-prize">
-                        <span class="prize-label">Prêmio - 50 R$</span>
-                    </div>
-                    <span class="cota-status cota-available">Disponível</span>
-                    <span class="cota-number">Cota 00244</span>
-                </div>
-                <div class="awarded-item">
-                    <div class="awarded-prize">
-                        <span class="prize-label">Prêmio - 50 R$</span>
-                    </div>
-                    <span class="cota-status cota-available">Disponível</span>
-                    <span class="cota-number">Cota 01500</span>
-                </div>
-                <div class="awarded-item">
-                    <div class="awarded-prize">
-                        <span class="prize-label">Prêmio - 100 R$</span>
-                    </div>
-                    <span class="cota-status cota-available">Disponível</span>
-                    <span class="cota-number">Cota 02000</span>
-                </div>
-                <div class="awarded-item">
-                    <div class="awarded-prize">
-                        <span class="prize-label">Prêmio - 50 R$</span>
-                    </div>
-                    <span class="cota-status cota-sold">Comprado</span>
-                    <span class="cota-number">Cota 02715</span>
-                    <span class="user-tag">👤 Jefão</span>
-                </div>
-                <div class="awarded-item">
-                    <div class="awarded-prize">
-                        <span class="prize-label">Prêmio - 50 R$</span>
-                    </div>
-                    <span class="cota-status cota-available">Disponível</span>
-                    <span class="cota-number">Cota 09103</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="selected-numbers" id="selectedNumbers">
-            <h4>Números Selecionados:</h4>
-            <div class="numbers-list" id="numbersList">
-                <!-- Números serão inseridos aqui -->
+            <div class="awarded-list" id="awardedList">
+                <!-- Será preenchido dinamicamente -->
             </div>
         </div>
 
@@ -1868,12 +1876,13 @@
             <div class="pix-qr">📱</div>
             <p>Escaneie o QR Code ou copie o código PIX:</p>
             <div class="pix-code" id="pixCode">
-                00020126580014BR.GOV.BCB.PIX0136123e4567-e12b-12d1-a456-426614174000520400005303986540510.005802BR5925RIFAMAX LTDA6009SAO PAULO62140510RIFA123456304B4A5
+                <!-- Código PIX será gerado dinamicamente -->
             </div>
             <button class="copy-btn" onclick="copyPixCode()">Copiar Código PIX</button>
             <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                Após o pagamento, seus números serão confirmados automaticamente.
+                Após o pagamento, seus números serão revelados automaticamente.
             </p>
+            <button type="button" class="submit-btn" style="margin-top: 1rem;" onclick="simulatePixPayment()">Simular Pagamento PIX</button>
         </div>
 
         <!-- Card Payment -->
@@ -1901,10 +1910,62 @@
                 <button type="submit" class="submit-btn">Finalizar Pagamento</button>
             </form>
         </div>
+    </div>
+</div>
 
-        <button class="submit-btn" id="generateNumbersBtn" onclick="generateRandomNumbers()" style="display: none;">
-            Gerar Números Aleatórios
-        </button>
+<!-- Payment Success Modal -->
+<div class="modal" id="successModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Pagamento Confirmado!</h2>
+            <button class="close-modal" onclick="closeModal('successModal')">✕</button>
+        </div>
+        
+        <div class="payment-success">
+            <div class="success-icon">✅</div>
+            <h3>Parabéns! Sua compra foi realizada com sucesso!</h3>
+            <p style="margin: 1rem 0;">Seus números da sorte são:</p>
+            <div class="success-numbers" id="successNumbers">
+                <!-- Números serão mostrados aqui -->
+            </div>
+            <p style="margin-top: 1.5rem; color: #666;">
+                Um email de confirmação foi enviado para <strong id="confirmEmail"></strong>
+            </p>
+        </div>
+        
+        <button class="submit-btn" onclick="closeModal('successModal'); showPage('my-tickets');">Ver Minhas Cotas</button>
+    </div>
+</div>
+
+<!-- Sales Details Modal -->
+<div class="modal" id="salesDetailsModal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="salesDetailsTitle">Detalhes de Vendas</h2>
+            <button class="close-modal" onclick="closeModal('salesDetailsModal')">✕</button>
+        </div>
+        
+        <div class="sales-summary" id="salesSummary">
+            <!-- Resumo será preenchido dinamicamente -->
+        </div>
+        
+        <h4 style="margin: 1.5rem 0 1rem 0;">Vendas Detalhadas</h4>
+        <div style="max-height: 400px; overflow-y: auto;">
+            <table class="sales-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Cliente</th>
+                        <th>Email</th>
+                        <th>Números</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody id="salesDetailsBody">
+                    <!-- Será preenchido dinamicamente -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -1916,144 +1977,172 @@
     let selectedNumbers = [];
     let selectedPaymentMethod = null;
 
-    // Dados das rifas (simulando banco de dados)
-    const raffleData = {
-        'Carro 0KM - Honda Civic': {
-            price: 25.00,
-            totalNumbers: 500,
-            soldNumbers: new Set([1, 5, 12, 23, 45, 67, 89, 123, 156, 189, 234, 267, 289, 345, 378, 389, 423, 456, 467, 489]),
-            description: 'Concorra a um Honda Civic 0KM! Sorteio com auditoria independente.',
-            ranking: [
-                { name: 'Thiago Gonçalves de Souza', cotas: 3475 },
-                { name: 'Caio jardim', cotas: 2809 },
-                { name: 'Jefão', cotas: 1800 }
-            ],
-            awardedCotas: [
-                { prize: 50, number: 157, sold: true, owner: 'Jefão' },
-                { prize: 50, number: 244, sold: false },
-                { prize: 50, number: 1500, sold: false },
-                { prize: 100, number: 2000, sold: false },
-                { prize: 50, number: 2715, sold: true, owner: 'Jefão' },
-                { prize: 50, number: 9103, sold: false }
-            ]
-        },
-        'iPhone 15 Pro Max': {
-            price: 15.00,
-            totalNumbers: 300,
-            soldNumbers: new Set([3, 7, 15, 28, 34, 56, 78, 92, 103, 145, 167, 189, 201, 234, 256, 278, 289]),
-            description: 'iPhone 15 Pro Max 256GB - Lacrado com garantia Apple!',
-            ranking: [
-                { name: 'Maria Silva', cotas: 1250 },
-                { name: 'João Santos', cotas: 980 },
-                { name: 'Pedro Lima', cotas: 750 }
-            ],
-            awardedCotas: [
-                { prize: 30, number: 100, sold: false },
-                { prize: 30, number: 200, sold: true, owner: 'Maria Silva' },
-                { prize: 50, number: 300, sold: false }
-            ]
-        },
-        'R$ 10.000 em Dinheiro': {
-            price: 10.00,
-            totalNumbers: 1000,
-            soldNumbers: new Set(Array.from({length: 890}, (_, i) => i + 1)),
-            description: 'R$ 10.000 em dinheiro via PIX! Sorteio pela Loteria Federal.',
-            ranking: [
-                { name: 'Ana Costa', cotas: 5420 },
-                { name: 'Roberto Dias', cotas: 4200 },
-                { name: 'Carla Mendes', cotas: 3890 }
-            ],
-            awardedCotas: [
-                { prize: 100, number: 500, sold: true, owner: 'Ana Costa' },
-                { prize: 100, number: 1000, sold: false }
-            ]
-        },
-        'Casa de R$ 500.000': {
-            price: 50.00,
-            totalNumbers: 200,
-            soldNumbers: new Set([2, 8, 15, 23, 34, 45, 56, 67, 78, 89, 91, 102, 134, 156, 167, 178, 189, 190]),
-            description: 'Casa completa no valor de R$ 500.000! Documentação inclusa.',
-            ranking: [
-                { name: 'Felipe Souza', cotas: 450 },
-                { name: 'Juliana Oliveira', cotas: 380 },
-                { name: 'Marcos Paulo', cotas: 290 }
-            ],
-            awardedCotas: [
-                { prize: 500, number: 100, sold: false },
-                { prize: 1000, number: 200, sold: false }
-            ]
-        },
-        'Moto Honda CBR 600': {
-            price: 20.00,
-            totalNumbers: 150,
-            soldNumbers: new Set([5, 12, 23, 34, 45, 56, 67, 78, 89, 91, 102, 134, 145]),
-            description: 'Honda CBR 600 0KM - A moto dos seus sonhos!',
-            ranking: [
-                { name: 'Lucas Martins', cotas: 890 },
-                { name: 'Gabriel Santos', cotas: 650 },
-                { name: 'Rafael Lima', cotas: 420 }
-            ],
-            awardedCotas: [
-                { prize: 50, number: 75, sold: false },
-                { prize: 100, number: 150, sold: false }
-            ]
-        },
-        'Joia de R$ 25.000': {
-            price: 30.00,
-            totalNumbers: 100,
-            soldNumbers: new Set([3, 7, 15, 28, 34, 56, 78, 92]),
-            description: 'Joia avaliada em R$ 25.000 com certificado de autenticidade!',
-            ranking: [
-                { name: 'Patricia Rocha', cotas: 320 },
-                { name: 'Amanda Costa', cotas: 280 },
-                { name: 'Fernanda Silva', cotas: 195 }
-            ],
-            awardedCotas: [
-                { prize: 200, number: 50, sold: false },
-                { prize: 300, number: 100, sold: false }
-            ]
-        },
-        'PlayStation 5 Pro': {
-            price: 12.00,
-            totalNumbers: 200,
-            soldNumbers: new Set([1, 5, 12, 23, 45, 67, 89, 123, 156, 189]),
-            description: 'PlayStation 5 Pro com 2 controles e 3 jogos!',
-            ranking: [
-                { name: 'Bruno Alves', cotas: 1580 },
-                { name: 'Diego Ferreira', cotas: 1230 },
-                { name: 'Eduardo Silva', cotas: 980 }
-            ],
-            awardedCotas: [
-                { prize: 30, number: 100, sold: true, owner: 'Bruno Alves' },
-                { prize: 50, number: 200, sold: false }
-            ]
-        }
+    // Base de dados (simulando backend)
+    let raffleDatabase = {
+        raffles: [],
+        sales: [],
+        winners: []
     };
 
-    // Dados dos tickets dos usuários (simulando banco de dados)
-    const userTickets = {
-        'maria@gmail.com': [
-            { raffle: 'Carro 0KM - Honda Civic', numbers: [23, 156, 289], date: '20/05/2025', status: 'Ativo' },
-            { raffle: 'iPhone 15 Pro Max', numbers: [78], date: '18/05/2025', status: 'Ativo' },
-            { raffle: 'TV Samsung 65"', numbers: [198], date: '15/04/2025', status: 'Finalizado - Ganhou!' }
-        ],
-        'joao@hotmail.com': [
-            { raffle: 'R$ 10.000 em Dinheiro', numbers: [45, 234, 567], date: '22/05/2025', status: 'Ativo' },
-            { raffle: 'PlayStation 5 Pro', numbers: [123, 456], date: '19/05/2025', status: 'Ativo' }
-        ]
-    };
+    // Inicializar com algumas rifas de exemplo
+    function initializeDatabase() {
+        // Rifas de exemplo
+        raffleDatabase.raffles = [
+            {
+                id: 1,
+                title: 'Carro 0KM - Honda Civic',
+                price: 25.00,
+                totalNumbers: 500,
+                soldNumbers: [1, 5, 12, 23, 45, 67, 89, 123, 156, 189, 234, 267, 289, 345, 378, 389, 423, 456, 467, 489],
+                description: 'Concorra a um Honda Civic 0KM! Sorteio com auditoria independente.',
+                drawDate: '2025-05-30',
+                icon: '🚗',
+                isHighlight: true,
+                status: 'active',
+                createdAt: new Date('2025-04-01'),
+                ranking: [
+                    { name: 'Thiago Gonçalves de Souza', cotas: 3475 },
+                    { name: 'Caio jardim', cotas: 2809 },
+                    { name: 'Jefão', cotas: 1800 }
+                ],
+                awardedCotas: [
+                    { prize: 50, number: 157, sold: true, owner: 'Jefão' },
+                    { prize: 50, number: 244, sold: false },
+                    { prize: 50, number: 1500, sold: false },
+                    { prize: 100, number: 2000, sold: false },
+                    { prize: 50, number: 2715, sold: true, owner: 'Jefão' },
+                    { prize: 50, number: 9103, sold: false }
+                ]
+            },
+            {
+                id: 2,
+                title: 'iPhone 15 Pro Max',
+                price: 15.00,
+                totalNumbers: 300,
+                soldNumbers: [3, 7, 15, 28, 34, 56, 78, 92, 103, 145, 167, 189, 201, 234, 256, 278, 289],
+                description: 'iPhone 15 Pro Max 256GB - Lacrado com garantia Apple!',
+                drawDate: '2025-05-28',
+                icon: '📱',
+                isHighlight: false,
+                status: 'active',
+                createdAt: new Date('2025-04-10'),
+                ranking: [
+                    { name: 'Maria Silva', cotas: 1250 },
+                    { name: 'João Santos', cotas: 980 },
+                    { name: 'Pedro Lima', cotas: 750 }
+                ],
+                awardedCotas: [
+                    { prize: 30, number: 100, sold: false },
+                    { prize: 30, number: 200, sold: true, owner: 'Maria Silva' },
+                    { prize: 50, number: 300, sold: false }
+                ]
+            },
+            {
+                id: 3,
+                title: 'R$ 10.000 em Dinheiro',
+                price: 10.00,
+                totalNumbers: 1000,
+                soldNumbers: Array.from({length: 890}, (_, i) => i + 1),
+                description: 'R$ 10.000 em dinheiro via PIX! Sorteio pela Loteria Federal.',
+                drawDate: '2025-05-25',
+                icon: '💰',
+                isHighlight: false,
+                status: 'active',
+                createdAt: new Date('2025-04-05'),
+                ranking: [
+                    { name: 'Ana Costa', cotas: 5420 },
+                    { name: 'Roberto Dias', cotas: 4200 },
+                    { name: 'Carla Mendes', cotas: 3890 }
+                ],
+                awardedCotas: [
+                    { prize: 100, number: 500, sold: true, owner: 'Ana Costa' },
+                    { prize: 100, number: 1000, sold: false }
+                ]
+            },
+            {
+                id: 4,
+                title: 'TV Samsung 65" QLED',
+                price: 18.00,
+                totalNumbers: 250,
+                soldNumbers: Array.from({length: 250}, (_, i) => i + 1),
+                description: 'TV Samsung 65" QLED 4K com garantia de 2 anos',
+                drawDate: '2025-04-15',
+                icon: '📺',
+                isHighlight: false,
+                status: 'finished',
+                createdAt: new Date('2025-03-01'),
+                winner: { name: 'Fernanda M.', email: 'f***a@yahoo.com', number: 198 }
+            }
+        ];
+
+        // Vendas de exemplo
+        raffleDatabase.sales = [
+            {
+                id: 1,
+                raffleId: 1,
+                customer: { name: 'João Silva', email: 'joao@gmail.com' },
+                numbers: [23, 156, 289],
+                amount: 75.00,
+                paymentMethod: 'pix',
+                date: new Date('2025-05-20T10:30:00'),
+                status: 'confirmed'
+            },
+            {
+                id: 2,
+                raffleId: 2,
+                customer: { name: 'Maria Santos', email: 'maria@hotmail.com' },
+                numbers: [78],
+                amount: 15.00,
+                paymentMethod: 'card',
+                date: new Date('2025-05-18T14:20:00'),
+                status: 'confirmed'
+            }
+        ];
+
+        // Ganhadores de exemplo
+        raffleDatabase.winners = [
+            {
+                raffleTitle: 'TV Samsung 65" QLED',
+                winner: 'Fernanda M.',
+                email: 'f***a@yahoo.com',
+                number: 198,
+                date: '15/04/2025',
+                prizeValue: 'R$ 6.000,00'
+            },
+            {
+                raffleTitle: 'Joia de R$ 25.000',
+                winner: 'Roberto S.',
+                email: 'r***o@gmail.com',
+                number: 89,
+                date: '20/03/2025',
+                prizeValue: 'R$ 25.000,00'
+            }
+        ];
+    }
 
     // Funções de navegação
     function showPage(pageId) {
-        // Esconder todas as páginas
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
         });
         
-        // Mostrar a página selecionada
         document.getElementById(pageId).classList.add('active');
         
-        // Scroll para o topo
+        // Atualizar dados quando mostrar página admin
+        if (pageId === 'admin') {
+            updateAdminDashboard();
+        }
+        
+        // Renderizar rifas quando mostrar home
+        if (pageId === 'home') {
+            renderRaffles();
+        }
+        
+        // Renderizar ganhadores
+        if (pageId === 'winners') {
+            renderWinners();
+        }
+        
         window.scrollTo(0, 0);
     }
 
@@ -2077,54 +2166,56 @@
         document.getElementById('loginModal').classList.add('active');
     }
 
-    function openPurchaseModal(raffleName, price, total, sold) {
+    function openPurchaseModal(raffleId) {
         if (!currentUser) {
             alert('Você precisa fazer login primeiro!');
             openLoginModal();
             return;
         }
 
-        currentRaffle = {
-            name: raffleName,
-            price: price,
-            totalNumbers: total,
-            soldNumbers: sold
-        };
+        const raffle = raffleDatabase.raffles.find(r => r.id === raffleId);
+        if (!raffle) return;
 
-        // Atualizar informações específicas da rifa
-        const raffleInfo = raffleData[raffleName];
-        if (raffleInfo) {
-            // Atualizar descrição
-            document.getElementById('raffleDescription').innerHTML = raffleInfo.description;
-            
-            // Atualizar ranking
-            updateRanking(raffleInfo.ranking);
-            
-            // Atualizar cotas premiadas
-            updateAwardedCotas(raffleInfo.awardedCotas);
+        currentRaffle = raffle;
+
+        // Atualizar informações da rifa
+        document.getElementById('purchaseTitle').textContent = `Comprar - ${raffle.title}`;
+        document.getElementById('raffleDescription').innerHTML = raffle.description;
+        
+        // Atualizar ranking
+        updateRanking(raffle.ranking || []);
+        
+        // Atualizar cotas premiadas
+        if (raffle.awardedCotas && raffle.awardedCotas.length > 0) {
+            document.getElementById('awardedCotasSection').style.display = 'block';
+            updateAwardedCotas(raffle.awardedCotas);
+        } else {
+            document.getElementById('awardedCotasSection').style.display = 'none';
         }
 
-        document.getElementById('purchaseTitle').textContent = `Comprar - ${raffleName}`;
         document.getElementById('purchaseModal').classList.add('active');
         updatePurchaseDisplay();
     }
 
     function updateRanking(ranking) {
-        const rankingList = document.querySelector('.ranking-list');
-        rankingList.innerHTML = ranking.map((item, index) => {
-            const medals = ['🥇', '🥈', '🥉'];
-            return `
-                <div class="ranking-item">
-                    <div class="ranking-medal">${medals[index]}</div>
-                    <div class="ranking-name">${item.name}</div>
-                    <div class="ranking-cotas"><strong>${item.cotas.toLocaleString()}</strong> cotas</div>
-                </div>
-            `;
-        }).join('');
+        const rankingList = document.getElementById('rankingList');
+        if (ranking.length === 0) {
+            rankingList.innerHTML = '<p style="text-align: center; color: #666;">Nenhuma venda ainda</p>';
+            return;
+        }
+        
+        const medals = ['🥇', '🥈', '🥉'];
+        rankingList.innerHTML = ranking.slice(0, 3).map((item, index) => `
+            <div class="ranking-item">
+                <div class="ranking-medal">${medals[index]}</div>
+                <div class="ranking-name">${item.name}</div>
+                <div class="ranking-cotas"><strong>${item.cotas.toLocaleString()}</strong> cotas</div>
+            </div>
+        `).join('');
     }
 
     function updateAwardedCotas(awardedCotas) {
-        const awardedList = document.querySelector('.awarded-list');
+        const awardedList = document.getElementById('awardedList');
         awardedList.innerHTML = awardedCotas.map(cota => `
             <div class="awarded-item">
                 <div class="awarded-prize">
@@ -2141,7 +2232,9 @@
 
     function closeModal(modalId) {
         document.getElementById(modalId).classList.remove('active');
-        resetPurchaseForm();
+        if (modalId === 'purchaseModal') {
+            resetPurchaseForm();
+        }
     }
 
     // Função de login
@@ -2237,39 +2330,6 @@
     function updatePurchaseDisplay() {
         const total = currentRaffle.price * selectedQuantity;
         document.getElementById('totalPrice').textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
-        
-        // Mostrar botão para gerar números
-        document.getElementById('generateNumbersBtn').style.display = 'block';
-        generateRandomNumbers();
-    }
-
-    function generateRandomNumbers() {
-        const raffleInfo = raffleData[currentRaffle.name];
-        const availableNumbers = [];
-        
-        // Gerar lista de números disponíveis
-        for (let i = 1; i <= raffleInfo.totalNumbers; i++) {
-            if (!raffleInfo.soldNumbers.has(i)) {
-                availableNumbers.push(i);
-            }
-        }
-
-        // Selecionar números aleatórios
-        selectedNumbers = [];
-        for (let i = 0; i < selectedQuantity && availableNumbers.length > 0; i++) {
-            const randomIndex = Math.floor(Math.random() * availableNumbers.length);
-            const selectedNumber = availableNumbers.splice(randomIndex, 1)[0];
-            selectedNumbers.push(selectedNumber);
-        }
-
-        // Ordenar números
-        selectedNumbers.sort((a, b) => a - b);
-
-        // Atualizar display
-        const numbersList = document.getElementById('numbersList');
-        numbersList.innerHTML = selectedNumbers.map(num => 
-            `<span class="number-badge">${num.toString().padStart(4, '0')}</span>`
-        ).join('');
     }
 
     // Funções de pagamento
@@ -2308,6 +2368,34 @@
         });
     }
 
+    function generateRandomNumbers() {
+        const availableNumbers = [];
+        
+        // Gerar lista de números disponíveis
+        for (let i = 1; i <= currentRaffle.totalNumbers; i++) {
+            if (!currentRaffle.soldNumbers.includes(i)) {
+                availableNumbers.push(i);
+            }
+        }
+
+        // Selecionar números aleatórios
+        selectedNumbers = [];
+        for (let i = 0; i < selectedQuantity && availableNumbers.length > 0; i++) {
+            const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+            const selectedNumber = availableNumbers.splice(randomIndex, 1)[0];
+            selectedNumbers.push(selectedNumber);
+        }
+
+        // Ordenar números
+        selectedNumbers.sort((a, b) => a - b);
+
+        return selectedNumbers;
+    }
+
+    function simulatePixPayment() {
+        processPayment('pix');
+    }
+
     function processCardPayment(event) {
         event.preventDefault();
         
@@ -2316,34 +2404,53 @@
         const cardCvv = document.getElementById('cardCvv').value;
         const cardName = document.getElementById('cardName').value;
 
-        // Simulação de processamento
         const loadingBtn = event.target.querySelector('button[type="submit"]');
         loadingBtn.textContent = 'Processando...';
         loadingBtn.disabled = true;
 
         setTimeout(() => {
-            // Adicionar números vendidos à rifa
-            const raffleInfo = raffleData[currentRaffle.name];
-            selectedNumbers.forEach(num => {
-                raffleInfo.soldNumbers.add(num);
-            });
-
-            // Adicionar aos tickets do usuário
-            if (!userTickets[currentUser.email]) {
-                userTickets[currentUser.email] = [];
-            }
-            userTickets[currentUser.email].push({
-                raffle: currentRaffle.name,
-                numbers: [...selectedNumbers],
-                date: new Date().toLocaleDateString('pt-BR'),
-                status: 'Ativo'
-            });
-
-            alert(`Pagamento aprovado! Seus números: ${selectedNumbers.join(', ')}`);
-            closeModal('purchaseModal');
+            processPayment('card');
             loadingBtn.textContent = 'Finalizar Pagamento';
             loadingBtn.disabled = false;
-        }, 3000);
+        }, 2000);
+    }
+
+    function processPayment(method) {
+        // Gerar números aleatórios
+        const numbers = generateRandomNumbers();
+        
+        // Adicionar números vendidos à rifa
+        const raffle = raffleDatabase.raffles.find(r => r.id === currentRaffle.id);
+        raffle.soldNumbers.push(...numbers);
+        
+        // Criar venda
+        const sale = {
+            id: raffleDatabase.sales.length + 1,
+            raffleId: currentRaffle.id,
+            customer: { name: currentUser.name, email: currentUser.email },
+            numbers: numbers,
+            amount: currentRaffle.price * selectedQuantity,
+            paymentMethod: method,
+            date: new Date(),
+            status: 'confirmed'
+        };
+        
+        raffleDatabase.sales.push(sale);
+        
+        // Mostrar modal de sucesso
+        showPaymentSuccess(numbers);
+        closeModal('purchaseModal');
+    }
+
+    function showPaymentSuccess(numbers) {
+        document.getElementById('confirmEmail').textContent = currentUser.email;
+        
+        const numbersContainer = document.getElementById('successNumbers');
+        numbersContainer.innerHTML = numbers.map(num => 
+            `<span class="success-number">${num.toString().padStart(4, '0')}</span>`
+        ).join('');
+        
+        document.getElementById('successModal').classList.add('active');
     }
 
     function resetPurchaseForm() {
@@ -2376,24 +2483,355 @@
             return;
         }
 
-        const tickets = userTickets[email];
+        // Buscar vendas do usuário
+        const userSales = raffleDatabase.sales.filter(sale => 
+            sale.customer.email.toLowerCase() === email.toLowerCase()
+        );
         
-        if (tickets && tickets.length > 0) {
-            ticketsList.innerHTML = tickets.map(ticket => `
-                <div class="winner-card">
-                    <div class="winner-prize">${ticket.raffle}</div>
-                    <div class="winner-info">
-                        <strong>Números:</strong> ${ticket.numbers.map(n => n.toString().padStart(4, '0')).join(', ')}<br>
-                        <strong>Data da Compra:</strong> ${ticket.date}<br>
-                        <strong>Status:</strong> ${ticket.status}
+        if (userSales.length > 0) {
+            ticketsList.innerHTML = userSales.map(sale => {
+                const raffle = raffleDatabase.raffles.find(r => r.id === sale.raffleId);
+                return `
+                    <div class="winner-card">
+                        <div class="winner-prize">${raffle.title}</div>
+                        <div class="winner-info">
+                            <strong>Números:</strong> ${sale.numbers.map(n => n.toString().padStart(4, '0')).join(', ')}<br>
+                            <strong>Data da Compra:</strong> ${sale.date.toLocaleDateString('pt-BR')}<br>
+                            <strong>Status:</strong> ${raffle.status === 'active' ? 'Ativo' : 'Finalizado'}<br>
+                            <strong>Valor:</strong> R$ ${sale.amount.toFixed(2).replace('.', ',')}
+                        </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
             results.classList.add('active');
         } else {
             ticketsList.innerHTML = '<p style="text-align: center; color: #666;">Nenhuma cota encontrada para este email.</p>';
             results.classList.add('active');
         }
+    }
+
+    // Admin Functions
+    function showAdminTab(tab) {
+        // Atualizar tabs
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        // Mostrar conteúdo
+        document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(`admin-${tab}`).classList.add('active');
+        
+        // Atualizar dados específicos
+        if (tab === 'dashboard') {
+            updateAdminDashboard();
+        } else if (tab === 'raffles') {
+            updateRafflesTable();
+        } else if (tab === 'sales') {
+            updateSalesTable();
+        }
+    }
+
+    function updateAdminDashboard() {
+        // Calcular estatísticas
+        let totalSales = 0;
+        let totalTickets = 0;
+        let activeRaffles = 0;
+        let customers = new Set();
+        
+        raffleDatabase.sales.forEach(sale => {
+            totalSales += sale.amount;
+            totalTickets += sale.numbers.length;
+            customers.add(sale.customer.email);
+        });
+        
+        raffleDatabase.raffles.forEach(raffle => {
+            if (raffle.status === 'active') activeRaffles++;
+        });
+        
+        // Atualizar display
+        document.getElementById('totalSales').textContent = `R$ ${totalSales.toFixed(2).replace('.', ',')}`;
+        document.getElementById('totalTickets').textContent = totalTickets.toLocaleString();
+        document.getElementById('totalCustomers').textContent = customers.size;
+        document.getElementById('activeRaffles').textContent = activeRaffles;
+    }
+
+    function updateRafflesTable() {
+        const tbody = document.getElementById('rafflesTableBody');
+        tbody.innerHTML = raffleDatabase.raffles.map(raffle => {
+            const revenue = raffle.soldNumbers.length * raffle.price;
+            const percentage = ((raffle.soldNumbers.length / raffle.totalNumbers) * 100).toFixed(1);
+            
+            return `
+                <tr>
+                    <td>#${raffle.id}</td>
+                    <td>${raffle.icon} ${raffle.title}</td>
+                    <td>R$ ${raffle.price.toFixed(2).replace('.', ',')}</td>
+                    <td>${raffle.soldNumbers.length}</td>
+                    <td>${raffle.totalNumbers}</td>
+                    <td>R$ ${revenue.toFixed(2).replace('.', ',')}</td>
+                    <td>
+                        <span class="status-badge ${raffle.status === 'active' ? 'status-active' : 'status-finished'}">
+                            ${raffle.status === 'active' ? 'Ativa' : 'Finalizada'} (${percentage}%)
+                        </span>
+                    </td>
+                    <td>
+                        <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;" 
+                                onclick="viewRaffleDetails(${raffle.id})">
+                            Ver Detalhes
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function updateSalesTable() {
+        const tbody = document.getElementById('salesTableBody');
+        const recentSales = raffleDatabase.sales.slice(-10).reverse(); // Últimas 10 vendas
+        
+        tbody.innerHTML = recentSales.map(sale => {
+            const raffle = raffleDatabase.raffles.find(r => r.id === sale.raffleId);
+            return `
+                <tr>
+                    <td>${sale.date.toLocaleString('pt-BR')}</td>
+                    <td>${sale.customer.name}</td>
+                    <td>${raffle.title}</td>
+                    <td>${sale.numbers.map(n => n.toString().padStart(4, '0')).join(', ')}</td>
+                    <td>R$ ${sale.amount.toFixed(2).replace('.', ',')}</td>
+                    <td>${sale.paymentMethod === 'pix' ? 'PIX' : 'Cartão'}</td>
+                    <td>
+                        <span class="status-badge status-active">
+                            ${sale.status === 'confirmed' ? 'Confirmado' : 'Pendente'}
+                        </span>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function viewRaffleDetails(raffleId) {
+        const raffle = raffleDatabase.raffles.find(r => r.id === raffleId);
+        const raffleSales = raffleDatabase.sales.filter(s => s.raffleId === raffleId);
+        
+        // Calcular resumo
+        const totalRevenue = raffleSales.reduce((sum, sale) => sum + sale.amount, 0);
+        const totalNumbersSold = raffle.soldNumbers.length;
+        const percentage = ((totalNumbersSold / raffle.totalNumbers) * 100).toFixed(1);
+        
+        // Atualizar modal
+        document.getElementById('salesDetailsTitle').textContent = `Detalhes - ${raffle.title}`;
+        
+        // Resumo
+        document.getElementById('salesSummary').innerHTML = `
+            <div class="summary-item">
+                <div class="summary-label">Total Arrecadado</div>
+                <div class="summary-value">R$ ${totalRevenue.toFixed(2).replace('.', ',')}</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Números Vendidos</div>
+                <div class="summary-value">${totalNumbersSold}/${raffle.totalNumbers}</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Progresso</div>
+                <div class="summary-value">${percentage}%</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Total de Vendas</div>
+                <div class="summary-value">${raffleSales.length}</div>
+            </div>
+        `;
+        
+        // Detalhes das vendas
+        document.getElementById('salesDetailsBody').innerHTML = raffleSales.map(sale => `
+            <tr>
+                <td>${sale.date.toLocaleDateString('pt-BR')}</td>
+                <td>${sale.customer.name}</td>
+                <td>${sale.customer.email}</td>
+                <td>${sale.numbers.map(n => n.toString().padStart(4, '0')).join(', ')}</td>
+                <td>R$ ${sale.amount.toFixed(2).replace('.', ',')}</td>
+            </tr>
+        `).join('');
+        
+        document.getElementById('salesDetailsModal').classList.add('active');
+    }
+
+    // Criar Nova Rifa
+    let awardedCotasCount = 0;
+
+    function addAwardedCota() {
+        awardedCotasCount++;
+        const container = document.getElementById('awardedCotasContainer');
+        const div = document.createElement('div');
+        div.className = 'form-row';
+        div.style.marginBottom = '1rem';
+        div.innerHTML = `
+            <div class="form-group">
+                <input type="number" id="awardedNumber${awardedCotasCount}" 
+                       placeholder="Número da cota" min="1" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="awardedPrize${awardedCotasCount}" 
+                       placeholder="Valor do prêmio (R$)" min="1" step="0.01" required>
+            </div>
+        `;
+        container.insertBefore(div, container.firstChild);
+    }
+
+    function createRaffle(event) {
+        event.preventDefault();
+        
+        // Coletar dados do formulário
+        const title = document.getElementById('raffleTitle').value;
+        const price = parseFloat(document.getElementById('rafflePrice').value);
+        const totalNumbers = parseInt(document.getElementById('raffleTotalNumbers').value);
+        const description = document.getElementById('raffleDescription').value;
+        const drawDate = document.getElementById('raffleDrawDate').value;
+        const icon = document.getElementById('raffleIcon').value || '🎁';
+        const imageUrl = document.getElementById('raffleImage').value;
+        const isHighlight = document.getElementById('raffleHighlight').checked;
+        
+        // Coletar cotas premiadas
+        const awardedCotas = [];
+        for (let i = 1; i <= awardedCotasCount; i++) {
+            const numberInput = document.getElementById(`awardedNumber${i}`);
+            const prizeInput = document.getElementById(`awardedPrize${i}`);
+            if (numberInput && prizeInput && numberInput.value && prizeInput.value) {
+                awardedCotas.push({
+                    number: parseInt(numberInput.value),
+                    prize: parseFloat(prizeInput.value),
+                    sold: false
+                });
+            }
+        }
+        
+        // Se for destacada, remover destaque das outras
+        if (isHighlight) {
+            raffleDatabase.raffles.forEach(r => r.isHighlight = false);
+        }
+        
+        // Criar nova rifa
+        const newRaffle = {
+            id: raffleDatabase.raffles.length + 1,
+            title,
+            price,
+            totalNumbers,
+            soldNumbers: [],
+            description,
+            drawDate,
+            icon,
+            imageUrl,
+            isHighlight,
+            status: 'active',
+            createdAt: new Date(),
+            ranking: [],
+            awardedCotas
+        };
+        
+        raffleDatabase.raffles.push(newRaffle);
+        
+        alert('Rifa criada com sucesso!');
+        event.target.reset();
+        awardedCotasCount = 0;
+        document.getElementById('awardedCotasContainer').innerHTML = 
+            '<button type="button" class="submit-btn" style="width: auto; margin-bottom: 1rem;" onclick="addAwardedCota()">+ Adicionar Cota Premiada</button>';
+        
+        // Atualizar tabelas
+        showAdminTab('raffles');
+        renderRaffles();
+    }
+
+    // Renderizar Rifas
+    function renderRaffles() {
+        // Rifa Principal
+        const mainRaffle = raffleDatabase.raffles.find(r => r.isHighlight && r.status === 'active');
+        const mainContainer = document.getElementById('mainRaffleContainer');
+        
+        if (mainRaffle) {
+            const soldCount = mainRaffle.soldNumbers.length;
+            const percentage = (soldCount / mainRaffle.totalNumbers * 100).toFixed(0);
+            
+            mainContainer.innerHTML = `
+                <div class="main-raffle-card">
+                    <div class="main-raffle-badge">DESTAQUE</div>
+                    ${mainRaffle.imageUrl ? 
+                        `<img src="${mainRaffle.imageUrl}" alt="${mainRaffle.title}" style="width: 100%; height: 300px; object-fit: cover; border-radius: 20px; margin-bottom: 2rem;">` :
+                        `<div class="main-raffle-image">${mainRaffle.icon}</div>`
+                    }
+                    <h3 class="main-raffle-title">${mainRaffle.title}</h3>
+                    <div class="main-raffle-price">R$ ${mainRaffle.price.toFixed(2).replace('.', ',')}</div>
+                    <div class="campaign-info">
+                        <span><strong>Vendidos:</strong> ${soldCount}/${mainRaffle.totalNumbers}</span>
+                        <span><strong>Sorteio:</strong> ${new Date(mainRaffle.drawDate).toLocaleDateString('pt-BR')}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${percentage}%"></div>
+                    </div>
+                    <button class="buy-button" onclick="openPurchaseModal(${mainRaffle.id})">Comprar Números</button>
+                </div>
+            `;
+        } else {
+            mainContainer.innerHTML = '<p style="text-align: center; color: #666;">Nenhuma rifa em destaque no momento.</p>';
+        }
+        
+        // Outras Campanhas
+        const otherRaffles = raffleDatabase.raffles.filter(r => !r.isHighlight || r.status !== 'active');
+        const campaignsGrid = document.getElementById('campaignsGrid');
+        
+        campaignsGrid.innerHTML = otherRaffles.map(raffle => {
+            const soldCount = raffle.soldNumbers.length;
+            const percentage = (soldCount / raffle.totalNumbers * 100).toFixed(0);
+            const isFinished = raffle.status === 'finished';
+            
+            return `
+                <div class="campaign-card fade-in ${isFinished ? 'finished' : ''}">
+                    ${raffle.imageUrl ? 
+                        `<img src="${raffle.imageUrl}" alt="${raffle.title}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 1.5rem;">` :
+                        `<div class="campaign-image">${raffle.icon}</div>`
+                    }
+                    <h3 class="campaign-title">${raffle.title}</h3>
+                    <div class="campaign-price">R$ ${raffle.price.toFixed(2).replace('.', ',')}</div>
+                    <div class="campaign-info">
+                        <span>${isFinished ? 'Finalizada' : `Vendidos: ${soldCount}/${raffle.totalNumbers}`}</span>
+                        <span>Sorteio: ${new Date(raffle.drawDate).toLocaleDateString('pt-BR')}</span>
+                    </div>
+                    ${isFinished && raffle.winner ? `
+                        <div class="winner-info">
+                            <h4>🎉 Ganhador:</h4>
+                            <p><strong>${raffle.winner.name}</strong></p>
+                            <p class="winner-number">Nº ${raffle.winner.number.toString().padStart(4, '0')}</p>
+                        </div>
+                    ` : `
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                        </div>
+                    `}
+                    <button class="buy-button" ${isFinished ? 'disabled' : `onclick="openPurchaseModal(${raffle.id})"`}>
+                        ${isFinished ? 'Rifa Finalizada' : 'Comprar Números'}
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Renderizar Ganhadores
+    function renderWinners() {
+        const winnersList = document.getElementById('winnersList');
+        
+        if (raffleDatabase.winners.length === 0) {
+            winnersList.innerHTML = '<p style="text-align: center; color: #666;">Nenhum ganhador ainda.</p>';
+            return;
+        }
+        
+        winnersList.innerHTML = raffleDatabase.winners.map(winner => `
+            <div class="winner-card">
+                <div class="winner-prize">${winner.raffleTitle}</div>
+                <div class="winner-info">
+                    <strong>Ganhador:</strong> ${winner.winner} (Email: ${winner.email})<br>
+                    <strong>Número:</strong> ${winner.number.toString().padStart(4, '0')} | 
+                    <strong>Data:</strong> ${winner.date}<br>
+                    <strong>Valor do Prêmio:</strong> ${winner.prizeValue}
+                </div>
+            </div>
+        `).join('');
     }
 
     // Enviar contato
@@ -2448,6 +2886,10 @@
                 e.target.value = e.target.value.replace(/[^\d]/g, '');
             });
         }
+        
+        // Inicializar banco de dados
+        initializeDatabase();
+        renderRaffles();
     });
 
     // Animação do header no scroll
