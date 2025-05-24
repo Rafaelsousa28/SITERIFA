@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RifaMax - Sua Sorte Começa Aqui</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary-green: #00C851;
+        --dark-green: #007E33;
+        --light-green: #4CAF50;
+        --black: #1a1a1a;
+        --dark-gray: #2d2d2d;
+        --white: #ffffff;
+        --light-gray: #f5f5f5;
+        --border-color: #e0e0e0;
+        --danger: #dc3545;
+        --warning: #ffc107;
+        --info: #17a2b8;
+        --orange: #ff9800;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
+        min-height: 100vh;
+        color: var(--white);
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 2px solid var(--primary-green);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+
+    nav {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 1rem 0;
+        gap: 2rem;
+    }
+
+    .nav-left {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+    }
+
+    .logo {
+        font-size: 2rem;
+        font-weight: 900;
+        color: var(--primary-green);
+        text-shadow: 0 2px 10px rgba(0, 200, 81, 0.3);
+        text-align: center;
+    }
+
+    .nav-right {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+    }
+
+    .nav-left a, .nav-right a {
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+    }
+
+    .nav-left a:hover, .nav-right a:hover {
+        color: var(--primary-green);
+        background: rgba(0, 200, 81, 0.1);
+    }
+
+    .contact-btn {
+        background: var(--primary-green) !important;
+        color: var(--white) !important;
+        padding: 0.7rem 1.5rem !important;
+        border-radius: 25px !important;
+        font-weight: 600 !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .contact-btn:hover {
+        background: var(--dark-green) !important;
+        transform: translateY(-2px);
+    }
+
+    .login-btn, .logout-btn {
+        background: transparent;
+        border: 2px solid var(--primary-green);
+        color: var(--primary-green);
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .login-btn:hover, .logout-btn:hover {
+        background: var(--primary-green);
+        color: var(--white);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+        grid-column: 1;
+    }
+
+    .mobile-sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100vh;
+        background: var(--black);
+        z-index: 2000;
+        transition: left 0.3s ease;
+        padding: 2rem;
+        border-right: 2px solid var(--primary-green);
+    }
+
+    .mobile-sidebar.active {
+        left: 0;
+    }
+
+    .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1500;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-nav {
+        list-style: none;
+        margin-top: 2rem;
+    }
+
+    .mobile-nav li {
+        margin-bottom: 1rem;
+    }
+
+    .mobile-nav a {
+        color: var(--white);
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+        display: block;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--dark-gray);
+        transition: color 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+        color: var(--primary-green);
+    }
+
+    .close-mobile-menu {
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        float: right;
+        cursor: pointer;
+    }
+
+    /* Page Content */
+    .page-content {
+        margin-top: 100px;
+        min-height: calc(100vh - 200px);
+    }
+
+    .page {
+        display: none;
+        padding: 2rem 0;
+    }
+
+    .page.active {
+        display: block;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--white);
+        text-align: center;
+        margin-bottom: 3rem;
+        text-shadow: 0 2px 10px rgba(0, 200, 81, 0.3);
+    }
+
+    /* Home Page */
+    .hero {
+        padding: 4rem 0;
+        text-align: center;
+        color: var(--white);
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        text-shadow: 0 4px 20px rgba(0, 200, 81, 0.3);
+        animation: fadeInUp 1s ease;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease 0.2s both;
+    }
+
+    .cta-button {
+        background: linear-gradient(45deg, var(--primary-green), var(--light-green));
+        color: var(--white);
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 10px 30px rgba(0, 200, 81, 0.4);
+        animation: fadeInUp 1s ease 0.4s both;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(0, 200, 81, 0.6);
+    }
+
+    /* Rifa Principal */
+    .main-raffle {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        padding: 3rem 0;
+        margin: 2rem 0;
+    }
+
+    .main-raffle-card {
+        background: var(--white);
+        color: var(--black);
+        border-radius: 25px;
+        padding: 3rem;
+        max-width: 800px;
+        margin: 0 auto;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        border: 3px solid var(--primary-green);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .main-raffle-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--primary-green), var(--light-green));
+    }
+
+    .main-raffle-badge {
+        background: var(--primary-green);
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .main-raffle-image {
+        width: 100%;
+        height: 300px;
+        background: linear-gradient(45deg, var(--primary-green), var(--light-green));
+        border-radius: 20px;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        color: var(--white);
+    }
+
+    .main-raffle-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--black);
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .main-raffle-price {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--primary-green);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    /* Outras Campanhas */
+    .other-campaigns {
+        padding: 4rem 0;
+    }
+
+    .campaigns-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .campaign-card {
+        background: var(--white);
+        color: var(--black);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid transparent;
+    }
+
+    .campaign-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(0, 200, 81, 0.2);
+        border-color: var(--primary-green);
+    }
+
+    .campaign-card.finished {
+        opacity: 0.8;
+        border-color: var(--danger);
+    }
+
+    .campaign-card.finished::after {
+        content: 'FINALIZADA';
+        position: absolute;
+        top: 20px;
+        right: -30px;
+        background: var(--danger);
+        color: var(--white);
+        padding: 0.3rem 3rem;
+        font-weight: 700;
+        font-size: 0.8rem;
+        transform: rotate(45deg);
+    }
+
+    .campaign-image {
+        width: 100%;
+        height: 180px;
+        background: linear-gradient(45deg, var(--primary-green), var(--light-green));
+        border-radius: 15px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: var(--white);
+    }
+
+    .campaign-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--black);
+        margin-bottom: 1rem;
+    }
+
+    .campaign-price {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary-green);
+        margin-bottom: 1rem;
+    }
+
+    .campaign-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .winner-info {
+        background: rgba(220, 53, 69, 0.1);
+        border: 1px solid var(--danger);
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 1rem 0;
+        text-align: center;
+    }
+
+    .winner-info h4 {
+        color: var(--danger);
+        margin-bottom: 0.5rem;
+    }
+
+    .winner-number {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--danger);
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: #f0f0f0;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary-green), var(--light-green));
+        border-radius: 5px;
+        transition: width 0.8s ease;
+    }
+
+    .buy-button {
+        width: 100%;
+        background: linear-gradient(45deg, var(--primary-green), var(--light-green));
+        color: var(--white);
+        border: none;
+        padding: 1rem;
+        border-radius: 15px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .buy-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 200, 81, 0.4);
+    }
+
+    .buy-button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* User Info */
+    .user-info {
+        background: rgba(0, 200, 81, 0.1);
+        border: 1px solid var(--primary-green);
+        border-radius: 15px;
+        padding: 1rem;
+        margin: 1rem 0;
+        text-align: center;
+        display: none;
+    }
+
+    .user-info.active {
+        display: block;
+    }
+
+    /* Admin Panel */
+    .admin-panel {
+        background: var(--white);
+        color: var(--black);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+    }
+
+    .admin-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: linear-gradient(45deg, var(--primary-green), var(--light-green));
+        color: var(--white);
+        padding: 1.5rem;
+        border-radius: 15px;
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .admin-table th {
+        background: var(--light-gray);
+        font-weight: 600;
+    }
+
+    .status-badge {
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .status-active {
+        background: rgba(0, 200, 81, 0.1);
+        color: var(--dark-green);
+    }
+
+    .status-finished {
+        background: rgba(220, 53, 69, 0.1);
+        color: var(--danger);
+    }
+
+    /* Contact Form */
+    .contact-form {
+        background: var(--white);
+        color: var(--black);
+        border-radius: 20px;
+        padding: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--black);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-green);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    /* Winners Table */
+    .winners-list {
+        background: var(--white);
+        color: var(--black);
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+    }
+
+    .winner-card {
+        border: 2px solid var(--primary-green);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        background: rgba(0, 200, 81, 0.05);
+    }
+
+    .winner-prize {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--primary-green);
+        margin-bottom: 0.5rem;
+    }
+
+    .winner-info {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    /* Search Box */
+    .search-box {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 2rem;
+        margin: 2rem 0;
+    }
+
+    .search-input {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .search-input input {
+        flex: 1;
+        padding: 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        font-size: 1rem;
+    }
+
+    .search-btn {
+        background: var(--primary-green);
+        color: var(--white);
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .search-results {
+        background: var(--light-gray);
+        border-radius: 10px;
+        padding: 1rem;
+        display: none;
+    }
+
+    .search-results.active {
+        display: block;
+    }
+
+    /* Terms */
+    .terms-content {
+        background: var(--white);
+        color: var(--black);
+        border-radius: 20px;
+        padding: 2rem;
+        line-height: 1.6;
+    }
+
+    .terms-content h3 {
+        color: var(--primary-green);
+        margin: 2rem 0 1rem 0;
+    }
+
+    /* Modal Styles */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 3000;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: var(--white);
+        color: var(--black);
+        padding: 2rem;
+        border-radius: 20px;
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid var(--primary-green);
+        padding-bottom: 1rem;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-green);
+    }
+
+    .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--black);
+    }
+
+    /* Seção de Descrição e Regulamento */
+    .description-section {
+        background: var(--light-gray);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .description-section h4 {
+        color: var(--primary-green);
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .description-section p {
+        color: #666;
+        line-height: 1.6;
+        text-align: center;
+    }
+
+    /* Seção de Seleção de Quantidade */
+    .quantity-section {
+        margin-bottom: 2rem;
+    }
+
+    .quantity-section h4 {
+        color: #666;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+
+    .quantity-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .quantity-btn-option {
+        background: var(--white);
+        border: 2px solid var(--border-color);
+        padding: 0.8rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .quantity-btn-option:hover {
+        border-color: var(--primary-green);
+        background: rgba(0, 200, 81, 0.05);
+    }
+
+    .quantity-btn-option.selected {
+        background: var(--primary-green);
+        color: var(--white);
+        border-color: var(--primary-green);
+    }
+
+    .quantity-selector {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .quantity-btn {
+        background: var(--primary-green);
+        color: var(--white);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .quantity-btn:hover {
+        background: var(--dark-green);
+    }
+
+    .quantity-display {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--black);
+        min-width: 80px;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+    }
+
+    /* Ranking Section */
+    .ranking-section {
+        margin: 2rem 0;
+    }
+
+    .ranking-title {
+        text-align: center;
+        color: #666;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    .ranking-list {
+        display: flex;
+        justify-content: space-around;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .ranking-item {
+        text-align: center;
+        flex: 1;
+    }
+
+    .ranking-medal {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .ranking-name {
+        font-weight: 600;
+        color: var(--black);
+        margin-bottom: 0.3rem;
+    }
+
+    .ranking-cotas {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .ranking-cotas strong {
+        font-weight: 700;
+        color: var(--black);
+    }
+
+    /* Cotas Premiadas */
+    .awarded-cotas {
+        background: rgba(255, 152, 0, 0.1);
+        border: 2px solid var(--orange);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .awarded-title {
+        text-align: center;
+        color: var(--orange);
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .awarded-list {
+        display: grid;
+        gap: 0.8rem;
+    }
+
+    .awarded-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem;
+        background: var(--white);
+        border-radius: 10px;
+    }
+
+    .awarded-prize {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+    }
+
+    .prize-label {
+        background: var(--orange);
+        color: var(--white);
+        padding: 0.2rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+    }
+
+    .cota-number {
+        background: var(--light-gray);
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-weight: 600;
+        color: var(--primary-green);
+    }
+
+    .cota-status {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+    }
+
+    .cota-available {
+        background: rgba(0, 200, 81, 0.1);
+        color: var(--dark-green);
+    }
+
+    .cota-sold {
+        background: rgba(220, 53, 69, 0.1);
+        color: var(--danger);
+    }
+
+    .user-tag {
+        font-size: 0.9rem;
+        color: #666;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    /* Selected Numbers */
+    .selected-numbers {
+        background: var(--light-gray);
+        border-radius: 10px;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .selected-numbers h4 {
+        color: var(--primary-green);
+        margin-bottom: 0.5rem;
+    }
+
+    .numbers-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .number-badge {
+        background: var(--primary-green);
+        color: var(--white);
+        padding: 0.3rem 0.7rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .payment-methods {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .payment-method {
+        border: 2px solid var(--border-color);
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .payment-method:hover {
+        border-color: var(--primary-green);
+    }
+
+    .payment-method.selected {
+        border-color: var(--primary-green);
+        background: rgba(0, 200, 81, 0.1);
+    }
+
+    .payment-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .total-price {
+        background: var(--primary-green);
+        color: var(--white);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin: 1rem 0;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: var(--primary-green);
+        color: var(--white);
+        border: none;
+        padding: 1rem;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background: var(--dark-green);
+    }
+
+    .submit-btn:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+
+    /* PIX Payment */
+    .pix-info {
+        display: none;
+        text-align: center;
+        padding: 1rem;
+        background: var(--light-gray);
+        border-radius: 10px;
+        margin: 1rem 0;
+    }
+
+    .pix-info.active {
+        display: block;
+    }
+
+    .pix-qr {
+        width: 200px;
+        height: 200px;
+        background: var(--white);
+        border: 2px solid var(--primary-green);
+        border-radius: 10px;
+        margin: 1rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+    }
+
+    .pix-code {
+        background: var(--white);
+        border: 2px solid var(--primary-green);
+        border-radius: 5px;
+        padding: 0.5rem;
+        font-family: monospace;
+        font-size: 0.9rem;
+        margin: 1rem 0;
+        word-break: break-all;
+    }
+
+    .copy-btn {
+        background: var(--primary-green);
+        color: var(--white);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 0.5rem;
+    }
+
+    /* Card Payment */
+    .card-form {
+        display: none;
+    }
+
+    .card-form.active {
+        display: block;
+    }
+
+    .card-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1rem;
+    }
+
+    /* Footer */
+    footer {
+        background: var(--black);
+        color: var(--white);
+        text-align: center;
+        padding: 2rem 0;
+        border-top: 2px solid var(--primary-green);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-in {
+        animation: fadeInUp 0.8s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+        nav {
+            grid-template-columns: auto 1fr auto;
+        }
+        
+        .nav-left, .nav-right {
+            display: none;
+        }
+        
+        .mobile-menu-btn {
+            display: block;
+        }
+        
+        .logo {
+            grid-column: 2;
+        }
+        
+        .nav-right {
+            grid-column: 3;
+            display: flex;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .main-raffle-title {
+            font-size: 2rem;
+        }
+        
+        .main-raffle-price {
+            font-size: 2.5rem;
+        }
+        
+        .campaigns-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .admin-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .payment-methods {
+            grid-template-columns: 1fr;
+        }
+        
+        .card-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .modal-content {
+            width: 95%;
+            padding: 1.5rem;
+        }
+        
+        .search-input {
+            flex-direction: column;
+        }
+        
+        .quantity-buttons {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .ranking-list {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 0 10px;
+        }
+        
+        .hero {
+            padding: 2rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+        }
+        
+        .admin-stats {
+            grid-template-columns: 1fr;
+        }
+        
+        nav {
+            grid-template-columns: auto 1fr;
+        }
+        
+        .nav-right {
+            display: none;
+        }
+    }
+</style>
+</head>
+<body>
+<header>
+    <nav class="container">
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        
+        <ul class="nav-left">
+            <li><a href="#" onclick="showPage('home')">Início</a></li>
+            <li><a href="#" onclick="showPage('winners')">Ganhadores</a></li>
+            <li><a href="#" onclick="showPage('my-tickets')">Minhas Cotas</a></li>
+            <li><a href="#" onclick="showPage('terms')">Termos de Uso</a></li>
+        </ul>
+        
+        <div class="logo">🎲 RifaMax</div>
+        
+        <div class="nav-right">
+            <a href="#" onclick="showPage('contact')" class="contact-btn">Contato</a>
+            <button class="login-btn" id="authBtn" onclick="openLoginModal()">Entrar</button>
+        </div>
+    </nav>
+</header>
+
+<!-- Mobile Sidebar -->
+<div class="mobile-overlay" onclick="closeMobileMenu()"></div>
+<div class="mobile-sidebar">
+    <button class="close-mobile-menu" onclick="closeMobileMenu()">✕</button>
+    <div class="logo" style="margin-bottom: 2rem;">🎲 RifaMax</div>
+    <ul class="mobile-nav">
+        <li><a href="#" onclick="showPage('home'); closeMobileMenu()">Início</a></li>
+        <li><a href="#" onclick="showPage('winners'); closeMobileMenu()">Ganhadores</a></li>
+        <li><a href="#" onclick="showPage('my-tickets'); closeMobileMenu()">Minhas Cotas</a></li>
+        <li><a href="#" onclick="showPage('terms'); closeMobileMenu()">Termos de Uso</a></li>
+        <li><a href="#" onclick="showPage('contact'); closeMobileMenu()">Contato</a></li>
+    </ul>
+    <div style="margin-top: 2rem;">
+        <button class="login-btn" onclick="openLoginModal(); closeMobileMenu();" style="width: 100%;" id="mobileAuthBtn">Entrar</button>
+    </div>
+</div>
+
+<div class="page-content">
+    <!-- HOME PAGE -->
+    <div class="page active" id="home">
+        <section class="hero">
+            <div class="container">
+                <h1>Sua Sorte Começa Aqui!</h1>
+                <p>Participe das melhores rifas online e concorra a prêmios incríveis</p>
+                
+                <div class="user-info" id="userInfo">
+                    <h3>Bem-vindo(a), <span id="userName"></span>!</h3>
+                    <p>Email: <span id="userEmail"></span></p>
+                    <button class="logout-btn" onclick="logout()">Sair</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rifa Principal -->
+        <section class="main-raffle">
+            <div class="container">
+                <h2 class="page-title">🔥 Rifa Principal</h2>
+                <div class="main-raffle-card">
+                    <div class="main-raffle-badge">DESTAQUE</div>
+                    <div class="main-raffle-image">🚗</div>
+                    <h3 class="main-raffle-title">Carro 0KM - Honda Civic</h3>
+                    <div class="main-raffle-price">R$ 25,00</div>
+                    <div class="campaign-info">
+                        <span><strong>Vendidos:</strong> 340/500</span>
+                        <span><strong>Sorteio:</strong> 30/05/2025</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 68%"></div>
+                    </div>
+                    <button class="buy-button" onclick="openPurchaseModal('Carro 0KM - Honda Civic', 25.00, 500, 340)">Comprar Números</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outras Campanhas -->
+        <section class="other-campaigns">
+            <div class="container">
+                <h2 class="page-title">Outras Campanhas</h2>
+                <div class="campaigns-grid">
+                    <div class="campaign-card fade-in">
+                        <div class="campaign-image">📱</div>
+                        <h3 class="campaign-title">iPhone 15 Pro Max</h3>
+                        <div class="campaign-price">R$ 15,00</div>
+                        <div class="campaign-info">
+                            <span>Vendidos: 180/300</span>
+                            <span>Sorteio: 28/05/2025</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <button class="buy-button" onclick="openPurchaseModal('iPhone 15 Pro Max', 15.00, 300, 180)">Comprar Números</button>
+                    </div>
+
+                    <div class="campaign-card fade-in">
+                        <div class="campaign-image">💰</div>
+                        <h3 class="campaign-title">R$ 10.000 em Dinheiro</h3>
+                        <div class="campaign-price">R$ 10,00</div>
+                        <div class="campaign-info">
+                            <span>Vendidos: 890/1000</span>
+                            <span>Sorteio: 25/05/2025</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 89%"></div>
+                        </div>
+                        <button class="buy-button" onclick="openPurchaseModal('R$ 10.000 em Dinheiro', 10.00, 1000, 890)">Comprar Números</button>
+                    </div>
+
+                    <div class="campaign-card fade-in finished">
+                        <div class="campaign-image">📺</div>
+                        <h3 class="campaign-title">TV Samsung 65" QLED</h3>
+                        <div class="campaign-price">R$ 18,00</div>
+                        <div class="campaign-info">
+                            <span>Finalizada</span>
+                            <span>Sorteio: 15/04/2025</span>
+                        </div>
+                        <div class="winner-info">
+                            <h4>🎉 Ganhador:</h4>
+                            <p><strong>Fernanda M.</strong></p>
+                            <p class="winner-number">Nº 0198</p>
+                        </div>
+                        <button class="buy-button" disabled>Rifa Finalizada</button>
+                    </div>
+
+                    <div class="campaign-card fade-in">
+                        <div class="campaign-image">🏠</div>
+                        <h3 class="campaign-title">Casa de R$ 500.000</h3>
+                        <div class="campaign-price">R$ 50,00</div>
+                        <div class="campaign-info">
+                            <span>Vendidos: 45/200</span>
+                            <span>Sorteio: 15/06/2025</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 22%"></div>
+                        </div>
+                        <button class="buy-button" onclick="openPurchaseModal('Casa de R$ 500.000', 50.00, 200, 45)">Comprar Números</button>
+                    </div>
+
+                    <div class="campaign-card fade-in">
+                        <div class="campaign-image">🏍️</div>
+                        <h3 class="campaign-title">Moto Honda CBR 600</h3>
+                        <div class="campaign-price">R$ 20,00</div>
+                        <div class="campaign-info">
+                            <span>Vendidos: 67/150</span>
+                            <span>Sorteio: 10/06/2025</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%"></div>
+                        </div>
+                        <button class="buy-button" onclick="openPurchaseModal('Moto Honda CBR 600', 20.00, 150, 67)">Comprar Números</button>
+                    </div>
+
+                    <div class="campaign-card fade-in finished">
+                        <div class="campaign-image">💎</div>
+                        <h3 class="campaign-title">Joia de R$ 25.000</h3>
+                        <div class="campaign-price">R$ 30,00</div>
+                        <div class="campaign-info">
+                            <span>Finalizada</span>
+                            <span>Sorteio: 20/03/2025</span>
+                        </div>
+                        <div class="winner-info">
+                            <h4>🎉 Ganhador:</h4>
+                            <p><strong>Roberto S.</strong></p>
+                            <p class="winner-number">Nº 0089</p>
+                        </div>
+                        <button class="buy-button" disabled>Rifa Finalizada</button>
+                    </div>
+
+                    <div class="campaign-card fade-in">
+                        <div class="campaign-image">🎮</div>
+                        <h3 class="campaign-title">PlayStation 5 Pro</h3>
+                        <div class="campaign-price">R$ 12,00</div>
+                        <div class="campaign-info">
+                            <span>Vendidos: 134/200</span>
+                            <span>Sorteio: 02/06/2025</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 67%"></div>
+                        </div>
+                        <button class="buy-button" onclick="openPurchaseModal('PlayStation 5 Pro', 12.00, 200, 134)">Comprar Números</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ADMIN PAGE -->
+    <div class="page" id="admin">
+        <div class="container">
+            <h2 class="page-title">🔧 Painel Administrativo</h2>
+            
+            <div class="admin-panel">
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">R$ 127.350</div>
+                        <div class="stat-label">Vendas Totais</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1.847</div>
+                        <div class="stat-label">Números Vendidos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">456</div>
+                        <div class="stat-label">Clientes Ativos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Rifas Ativas</div>
+                    </div>
+                </div>
+
+                <h3>Gestão de Rifas</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Rifa</th>
+                            <th>Preço</th>
+                            <th>Vendidos</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Carro 0KM - Honda Civic</td>
+                            <td>R$ 25,00</td>
+                            <td>340</td>
+                            <td>500</td>
+                            <td><span class="status-badge status-active">Ativa</span></td>
+                            <td>
+                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Gerenciar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>iPhone 15 Pro Max</td>
+                            <td>R$ 15,00</td>
+                            <td>180</td>
+                            <td>300</td>
+                            <td><span class="status-badge status-active">Ativa</span></td>
+                            <td>
+                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Gerenciar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>R$ 10.000 em Dinheiro</td>
+                            <td>R$ 10,00</td>
+                            <td>890</td>
+                            <td>1000</td>
+                            <td><span class="status-badge status-active">Ativa</span></td>
+                            <td>
+                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Gerenciar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>TV Samsung 65"</td>
+                            <td>R$ 18,00</td>
+                            <td>250</td>
+                            <td>250</td>
+                            <td><span class="status-badge status-finished">Finalizada</span></td>
+                            <td>
+                                <button class="submit-btn" style="width: auto; padding: 0.5rem 1rem;">Ver Resultado</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WINNERS PAGE -->
+    <div class="page" id="winners">
+        <div class="container">
+            <h2 class="page-title">🏆 Ganhadores</h2>
+            
+            <div class="winners-list">
+                <div class="winner-card">
+                    <div class="winner-prize">🚗 Carro Chevrolet Onix 0KM</div>
+                    <div class="winner-info">
+                        <strong>Ganhador:</strong> Maria S. (Email: m***a@gmail.com)<br>
+                        <strong>Número:</strong> 0247 | <strong>Data:</strong> 15/04/2025<br>
+                        <strong>Rifa:</strong> #RF001 | <strong>Valor do Prêmio:</strong> R$ 70.000,00
+                    </div>
+                </div>
+
+                <div class="winner-card">
+                    <div class="winner-prize">📱 iPhone 14 Pro Max</div>
+                    <div class="winner-info">
+                        <strong>Ganhador:</strong> João P. (Email: j***o@hotmail.com)<br>
+                        <strong>Número:</strong> 0156 | <strong>Data:</strong> 08/04/2025<br>
+                        <strong>Rifa:</strong> #RF002 | <strong>Valor do Prêmio:</strong> R$ 8.500,00
+                    </div>
+                </div>
+
+                <div class="winner-card">
+                    <div class="winner-prize">💰 R$ 50.000 em Dinheiro</div>
+                    <div class="winner-info">
+                        <strong>Ganhador:</strong> Ana C. (Email: a***a@outlook.com)<br>
+                        <strong>Número:</strong> 0789 | <strong>Data:</strong> 25/03/2025<br>
+                        <strong>Rifa:</strong> #RF003 | <strong>Valor do Prêmio:</strong> R$ 50.000,00
+                    </div>
+                </div>
+
+                <div class="winner-card">
+                    <div class="winner-prize">🏍️ Moto Honda CB 600F</div>
+                    <div class="winner-info">
+                        <strong>Ganhador:</strong> Carlos R. (Email: c***s@gmail.com)<br>
+                        <strong>Número:</strong> 0023 | <strong>Data:</strong> 12/03/2025<br>
+                        <strong>Rifa:</strong> #RF004 | <strong>Valor do Prêmio:</strong> R$ 35.000,00
+                    </div>
+                </div>
+
+                <div class="winner-card">
+                    <div class="winner-prize">📺 TV Samsung 65" QLED</div>
+                    <div class="winner-info">
+                        <strong>Ganhador:</strong> Fernanda M. (Email: f***a@yahoo.com)<br>
+                        <strong>Número:</strong> 0198 | <strong>Data:</strong> 28/02/2025<br>
+                        <strong>Rifa:</strong> #RF005 | <strong>Valor do Prêmio:</strong> R$ 6.000,00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MY TICKETS PAGE -->
+    <div class="page" id="my-tickets">
+        <div class="container">
+            <h2 class="page-title">🎫 Minhas Cotas</h2>
+            
+            <div class="search-box">
+                <h3 style="color: var(--black); margin-bottom: 1rem;">Consultar Cotas por Email</h3>
+                <div class="search-input">
+                    <input type="email" id="emailSearch" placeholder="Digite seu email">
+                    <button class="search-btn" onclick="searchTickets()">Buscar</button>
+                </div>
+                
+                <div class="search-results" id="searchResults">
+                    <h4 style="color: var(--primary-green); margin-bottom: 1rem;">Suas Cotas:</h4>
+                    <div id="ticketsList">
+                        <!-- Resultados aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TERMS PAGE -->
+    <div class="page" id="terms">
+        <div class="container">
+            <h2 class="page-title">📋 Termos de Uso</h2>
+            
+            <div class="terms-content">
+                <h3>1. Aceitação dos Termos</h3>
+                <p>Ao acessar e usar este site, você aceita e concorda em ficar vinculado aos termos e condições de uso. Se você não concordar com qualquer parte destes termos, não deve usar nosso serviço.</p>
+
+                <h3>2. Descrição do Serviço</h3>
+                <p>O RifaMax é uma plataforma online que oferece serviços de rifas eletrônicas. Nosso objetivo é proporcionar uma experiência segura e transparente para todos os participantes.</p>
+
+                <h3>3. Elegibilidade</h3>
+                <p>Para participar das rifas, você deve:</p>
+                <ul style="margin-left: 2rem; margin-top: 0.5rem;">
+                    <li>Ter pelo menos 18 anos de idade</li>
+                    <li>Fornecer informações verdadeiras e atualizadas</li>
+                    <li>Possuir email válido</li>
+                    <li>Estar em conformidade com as leis locais</li>
+                </ul>
+
+                <h3>4. Como Funcionam as Rifas</h3>
+                <p>As rifas são sorteios onde os participantes compram números para concorrer a prêmios. Os sorteios são realizados de forma transparente e os resultados são divulgados publicamente.</p>
+
+                <h3>5. Pagamentos</h3>
+                <p>Aceitamos pagamentos via PIX e cartão de crédito/débito. Todos os pagamentos são processados de forma segura através de nossos parceiros certificados.</p>
+
+                <h3>6. Prêmios e Entrega</h3>
+                <p>Os ganhadores serão contatados através dos dados fornecidos no cadastro. A entrega dos prêmios será coordenada diretamente com o ganhador, respeitando os prazos estabelecidos.</p>
+
+                <h3>7. Responsabilidades</h3>
+                <p>O RifaMax se compromete a conduzir todos os sorteios de forma transparente e justa. Os participantes são responsáveis por fornecer dados corretos e manter suas informações atualizadas.</p>
+
+                <h3>8. Privacidade</h3>
+                <p>Respeitamos sua privacidade e protegemos seus dados pessoais de acordo com a Lei Geral de Proteção de Dados (LGPD). Seus dados são utilizados apenas para os fins relacionados aos serviços oferecidos.</p>
+
+                <h3>9. Modificações</h3>
+                <p>Reservamo-nos o direito de modificar estes termos a qualquer momento. As alterações entrarão em vigor imediatamente após a publicação no site.</p>
+
+                <h3>10. Contato</h3>
+                <p>Para dúvidas ou suporte, entre em contato conosco através dos canais disponíveis na página de contato.</p>
+
+                <p style="margin-top: 2rem; font-weight: 600; color: var(--primary-green);">
+                    Última atualização: 24 de maio de 2025
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div class="page" id="contact">
+        <div class="container">
+            <h2 class="page-title">📞 Entre em Contato</h2>
+            
+            <div class="contact-form">
+                <h3 style="margin-bottom: 1.5rem; color: var(--primary-green);">Envie sua Mensagem</h3>
+                <form onsubmit="sendContact(event)">
+                    <div class="form-group">
+                        <label for="contactName">Nome Completo:</label>
+                        <input type="text" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">E-mail:</label>
+                        <input type="email" id="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Telefone:</label>
+                        <input type="tel" id="contactPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Assunto:</label>
+                        <input type="text" id="contactSubject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Mensagem:</label>
+                        <textarea id="contactMessage" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Enviar Mensagem</button>
+                </form>
+                
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+                    <h4 style="color: var(--primary-green); margin-bottom: 1rem;">Outras Formas de Contato:</h4>
+                    <p><strong>📱 WhatsApp:</strong> (11) 99999-9999</p>
+                    <p><strong>📧 E-mail:</strong> contato@rifamax.com.br</p>
+                    <p><strong>🕒 Horário de Atendimento:</strong> Segunda a Sexta, 9h às 18h</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 RifaMax. Todos os direitos reservados.</p>
+        <p>Contato: (11) 99999-9999 | contato@rifamax.com.br</p>
+        <div style="margin-top: 1rem;">
+            <button onclick="showPage('admin')" style="background: none; border: 1px solid var(--primary-green); color: var(--primary-green); padding: 0.3rem 1rem; border-radius: 15px; cursor: pointer; font-size: 0.8rem;">Acesso Admin</button>
+        </div>
+    </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Entrar na Conta</h2>
+            <button class="close-modal" onclick="closeModal('loginModal')">✕</button>
+        </div>
+        <form onsubmit="login(event)">
+            <div class="form-group">
+                <label for="emailInput">Email:</label>
+                <input type="email" id="emailInput" placeholder="seu@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="nameInput">Nome Completo:</label>
+                <input type="text" id="nameInput" placeholder="Seu nome completo" required>
+            </div>
+            <button type="submit" class="submit-btn">Entrar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Purchase Modal -->
+<div class="modal" id="purchaseModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="purchaseTitle">Comprar Números</h2>
+            <button class="close-modal" onclick="closeModal('purchaseModal')">✕</button>
+        </div>
+        
+        <!-- Descrição/Regulamento -->
+        <div class="description-section">
+            <h4>DESCRIÇÃO / REGULAMENTO</h4>
+            <p id="raffleDescription">
+                RANK PARA QUEM COMPRAR MAIS BILHETES LEVA 300 R$ ✅💰<br>
+                Qualquer problema com sua compra, chamar direct ou WhatsApp (38) 991039198
+            </p>
+        </div>
+
+        <!-- Seleção de Quantidade -->
+        <div class="quantity-section">
+            <h4>SELECIONE A QUANTIDADE DE COTAS</h4>
+            <div class="quantity-buttons">
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(1)">+1</button>
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(5)">+5</button>
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(10)">+10</button>
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(100)">+100</button>
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(1000)">+1000</button>
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(5000)">+5000</button>
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(10000)">+10000</button>
+                <button type="button" class="quantity-btn-option" onclick="setQuantity(20000)">+20000</button>
+            </div>
+            
+            <div class="quantity-selector">
+                <button type="button" class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                <input type="number" class="quantity-display" id="quantity" value="1" min="1" onchange="updateQuantityFromInput()">
+                <button type="button" class="quantity-btn" onclick="increaseQuantity()">+</button>
+            </div>
+        </div>
+
+        <!-- Ranking -->
+        <div class="ranking-section">
+            <h4 class="ranking-title">RANKING</h4>
+            <div class="ranking-list">
+                <div class="ranking-item">
+                    <div class="ranking-medal">🥇</div>
+                    <div class="ranking-name">Thiago Gonçalves de Souza</div>
+                    <div class="ranking-cotas"><strong>3.475</strong> cotas</div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-medal">🥈</div>
+                    <div class="ranking-name">Caio jardim</div>
+                    <div class="ranking-cotas"><strong>2.809</strong> cotas</div>
+                </div>
+                <div class="ranking-item">
+                    <div class="ranking-medal">🥉</div>
+                    <div class="ranking-name">Jefão</div>
+                    <div class="ranking-cotas"><strong>1.800</strong> cotas</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cotas Premiadas -->
+        <div class="awarded-cotas">
+            <h4 class="awarded-title">COTA PREMIADA</h4>
+            <div class="awarded-list">
+                <div class="awarded-item">
+                    <div class="awarded-prize">
+                        <span class="prize-label">Prêmio - 50 R$</span>
+                    </div>
+                    <span class="cota-status cota-sold">Comprado</span>
+                    <span class="cota-number">Cota 00157</span>
+                    <span class="user-tag">👤 Jefão</span>
+                </div>
+                <div class="awarded-item">
+                    <div class="awarded-prize">
+                        <span class="prize-label">Prêmio - 50 R$</span>
+                    </div>
+                    <span class="cota-status cota-available">Disponível</span>
+                    <span class="cota-number">Cota 00244</span>
+                </div>
+                <div class="awarded-item">
+                    <div class="awarded-prize">
+                        <span class="prize-label">Prêmio - 50 R$</span>
+                    </div>
+                    <span class="cota-status cota-available">Disponível</span>
+                    <span class="cota-number">Cota 01500</span>
+                </div>
+                <div class="awarded-item">
+                    <div class="awarded-prize">
+                        <span class="prize-label">Prêmio - 100 R$</span>
+                    </div>
+                    <span class="cota-status cota-available">Disponível</span>
+                    <span class="cota-number">Cota 02000</span>
+                </div>
+                <div class="awarded-item">
+                    <div class="awarded-prize">
+                        <span class="prize-label">Prêmio - 50 R$</span>
+                    </div>
+                    <span class="cota-status cota-sold">Comprado</span>
+                    <span class="cota-number">Cota 02715</span>
+                    <span class="user-tag">👤 Jefão</span>
+                </div>
+                <div class="awarded-item">
+                    <div class="awarded-prize">
+                        <span class="prize-label">Prêmio - 50 R$</span>
+                    </div>
+                    <span class="cota-status cota-available">Disponível</span>
+                    <span class="cota-number">Cota 09103</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="selected-numbers" id="selectedNumbers">
+            <h4>Números Selecionados:</h4>
+            <div class="numbers-list" id="numbersList">
+                <!-- Números serão inseridos aqui -->
+            </div>
+        </div>
+
+        <div class="total-price" id="totalPrice">
+            Total: R$ 0,00
+        </div>
+
+        <div class="form-group">
+            <label>Forma de Pagamento:</label>
+            <div class="payment-methods">
+                <div class="payment-method" onclick="selectPayment('pix')">
+                    <div class="payment-icon">📱</div>
+                    <div>PIX</div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('card')">
+                    <div class="payment-icon">💳</div>
+                    <div>Cartão</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PIX Payment -->
+        <div class="pix-info" id="pixInfo">
+            <h3>Pagamento via PIX</h3>
+            <div class="pix-qr">📱</div>
+            <p>Escaneie o QR Code ou copie o código PIX:</p>
+            <div class="pix-code" id="pixCode">
+                00020126580014BR.GOV.BCB.PIX0136123e4567-e12b-12d1-a456-426614174000520400005303986540510.005802BR5925RIFAMAX LTDA6009SAO PAULO62140510RIFA123456304B4A5
+            </div>
+            <button class="copy-btn" onclick="copyPixCode()">Copiar Código PIX</button>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                Após o pagamento, seus números serão confirmados automaticamente.
+            </p>
+        </div>
+
+        <!-- Card Payment -->
+        <div class="card-form" id="cardForm">
+            <h3>Pagamento com Cartão</h3>
+            <form onsubmit="processCardPayment(event)">
+                <div class="form-group">
+                    <label>Número do Cartão:</label>
+                    <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                </div>
+                <div class="card-row">
+                    <div class="form-group">
+                        <label>Validade:</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV:</label>
+                        <input type="text" id="cardCvv" placeholder="000" maxlength="3" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nome no Cartão:</label>
+                    <input type="text" id="cardName" placeholder="NOME COMO NO CARTÃO" required>
+                </div>
+                <button type="submit" class="submit-btn">Finalizar Pagamento</button>
+            </form>
+        </div>
+
+        <button class="submit-btn" id="generateNumbersBtn" onclick="generateRandomNumbers()" style="display: none;">
+            Gerar Números Aleatórios
+        </button>
+    </div>
+</div>
+
+<script>
+    // Variáveis globais
+    let currentUser = null;
+    let currentRaffle = null;
+    let selectedQuantity = 1;
+    let selectedNumbers = [];
+    let selectedPaymentMethod = null;
+
+    // Dados das rifas (simulando banco de dados)
+    const raffleData = {
+        'Carro 0KM - Honda Civic': {
+            price: 25.00,
+            totalNumbers: 500,
+            soldNumbers: new Set([1, 5, 12, 23, 45, 67, 89, 123, 156, 189, 234, 267, 289, 345, 378, 389, 423, 456, 467, 489]),
+            description: 'Concorra a um Honda Civic 0KM! Sorteio com auditoria independente.',
+            ranking: [
+                { name: 'Thiago Gonçalves de Souza', cotas: 3475 },
+                { name: 'Caio jardim', cotas: 2809 },
+                { name: 'Jefão', cotas: 1800 }
+            ],
+            awardedCotas: [
+                { prize: 50, number: 157, sold: true, owner: 'Jefão' },
+                { prize: 50, number: 244, sold: false },
+                { prize: 50, number: 1500, sold: false },
+                { prize: 100, number: 2000, sold: false },
+                { prize: 50, number: 2715, sold: true, owner: 'Jefão' },
+                { prize: 50, number: 9103, sold: false }
+            ]
+        },
+        'iPhone 15 Pro Max': {
+            price: 15.00,
+            totalNumbers: 300,
+            soldNumbers: new Set([3, 7, 15, 28, 34, 56, 78, 92, 103, 145, 167, 189, 201, 234, 256, 278, 289]),
+            description: 'iPhone 15 Pro Max 256GB - Lacrado com garantia Apple!',
+            ranking: [
+                { name: 'Maria Silva', cotas: 1250 },
+                { name: 'João Santos', cotas: 980 },
+                { name: 'Pedro Lima', cotas: 750 }
+            ],
+            awardedCotas: [
+                { prize: 30, number: 100, sold: false },
+                { prize: 30, number: 200, sold: true, owner: 'Maria Silva' },
+                { prize: 50, number: 300, sold: false }
+            ]
+        },
+        'R$ 10.000 em Dinheiro': {
+            price: 10.00,
+            totalNumbers: 1000,
+            soldNumbers: new Set(Array.from({length: 890}, (_, i) => i + 1)),
+            description: 'R$ 10.000 em dinheiro via PIX! Sorteio pela Loteria Federal.',
+            ranking: [
+                { name: 'Ana Costa', cotas: 5420 },
+                { name: 'Roberto Dias', cotas: 4200 },
+                { name: 'Carla Mendes', cotas: 3890 }
+            ],
+            awardedCotas: [
+                { prize: 100, number: 500, sold: true, owner: 'Ana Costa' },
+                { prize: 100, number: 1000, sold: false }
+            ]
+        },
+        'Casa de R$ 500.000': {
+            price: 50.00,
+            totalNumbers: 200,
+            soldNumbers: new Set([2, 8, 15, 23, 34, 45, 56, 67, 78, 89, 91, 102, 134, 156, 167, 178, 189, 190]),
+            description: 'Casa completa no valor de R$ 500.000! Documentação inclusa.',
+            ranking: [
+                { name: 'Felipe Souza', cotas: 450 },
+                { name: 'Juliana Oliveira', cotas: 380 },
+                { name: 'Marcos Paulo', cotas: 290 }
+            ],
+            awardedCotas: [
+                { prize: 500, number: 100, sold: false },
+                { prize: 1000, number: 200, sold: false }
+            ]
+        },
+        'Moto Honda CBR 600': {
+            price: 20.00,
+            totalNumbers: 150,
+            soldNumbers: new Set([5, 12, 23, 34, 45, 56, 67, 78, 89, 91, 102, 134, 145]),
+            description: 'Honda CBR 600 0KM - A moto dos seus sonhos!',
+            ranking: [
+                { name: 'Lucas Martins', cotas: 890 },
+                { name: 'Gabriel Santos', cotas: 650 },
+                { name: 'Rafael Lima', cotas: 420 }
+            ],
+            awardedCotas: [
+                { prize: 50, number: 75, sold: false },
+                { prize: 100, number: 150, sold: false }
+            ]
+        },
+        'Joia de R$ 25.000': {
+            price: 30.00,
+            totalNumbers: 100,
+            soldNumbers: new Set([3, 7, 15, 28, 34, 56, 78, 92]),
+            description: 'Joia avaliada em R$ 25.000 com certificado de autenticidade!',
+            ranking: [
+                { name: 'Patricia Rocha', cotas: 320 },
+                { name: 'Amanda Costa', cotas: 280 },
+                { name: 'Fernanda Silva', cotas: 195 }
+            ],
+            awardedCotas: [
+                { prize: 200, number: 50, sold: false },
+                { prize: 300, number: 100, sold: false }
+            ]
+        },
+        'PlayStation 5 Pro': {
+            price: 12.00,
+            totalNumbers: 200,
+            soldNumbers: new Set([1, 5, 12, 23, 45, 67, 89, 123, 156, 189]),
+            description: 'PlayStation 5 Pro com 2 controles e 3 jogos!',
+            ranking: [
+                { name: 'Bruno Alves', cotas: 1580 },
+                { name: 'Diego Ferreira', cotas: 1230 },
+                { name: 'Eduardo Silva', cotas: 980 }
+            ],
+            awardedCotas: [
+                { prize: 30, number: 100, sold: true, owner: 'Bruno Alves' },
+                { prize: 50, number: 200, sold: false }
+            ]
+        }
+    };
+
+    // Dados dos tickets dos usuários (simulando banco de dados)
+    const userTickets = {
+        'maria@gmail.com': [
+            { raffle: 'Carro 0KM - Honda Civic', numbers: [23, 156, 289], date: '20/05/2025', status: 'Ativo' },
+            { raffle: 'iPhone 15 Pro Max', numbers: [78], date: '18/05/2025', status: 'Ativo' },
+            { raffle: 'TV Samsung 65"', numbers: [198], date: '15/04/2025', status: 'Finalizado - Ganhou!' }
+        ],
+        'joao@hotmail.com': [
+            { raffle: 'R$ 10.000 em Dinheiro', numbers: [45, 234, 567], date: '22/05/2025', status: 'Ativo' },
+            { raffle: 'PlayStation 5 Pro', numbers: [123, 456], date: '19/05/2025', status: 'Ativo' }
+        ]
+    };
+
+    // Funções de navegação
+    function showPage(pageId) {
+        // Esconder todas as páginas
+        document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+        });
+        
+        // Mostrar a página selecionada
+        document.getElementById(pageId).classList.add('active');
+        
+        // Scroll para o topo
+        window.scrollTo(0, 0);
+    }
+
+    // Funções de navegação mobile
+    function toggleMobileMenu() {
+        const sidebar = document.querySelector('.mobile-sidebar');
+        const overlay = document.querySelector('.mobile-overlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    function closeMobileMenu() {
+        const sidebar = document.querySelector('.mobile-sidebar');
+        const overlay = document.querySelector('.mobile-overlay');
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    // Funções de modal
+    function openLoginModal() {
+        document.getElementById('loginModal').classList.add('active');
+    }
+
+    function openPurchaseModal(raffleName, price, total, sold) {
+        if (!currentUser) {
+            alert('Você precisa fazer login primeiro!');
+            openLoginModal();
+            return;
+        }
+
+        currentRaffle = {
+            name: raffleName,
+            price: price,
+            totalNumbers: total,
+            soldNumbers: sold
+        };
+
+        // Atualizar informações específicas da rifa
+        const raffleInfo = raffleData[raffleName];
+        if (raffleInfo) {
+            // Atualizar descrição
+            document.getElementById('raffleDescription').innerHTML = raffleInfo.description;
+            
+            // Atualizar ranking
+            updateRanking(raffleInfo.ranking);
+            
+            // Atualizar cotas premiadas
+            updateAwardedCotas(raffleInfo.awardedCotas);
+        }
+
+        document.getElementById('purchaseTitle').textContent = `Comprar - ${raffleName}`;
+        document.getElementById('purchaseModal').classList.add('active');
+        updatePurchaseDisplay();
+    }
+
+    function updateRanking(ranking) {
+        const rankingList = document.querySelector('.ranking-list');
+        rankingList.innerHTML = ranking.map((item, index) => {
+            const medals = ['🥇', '🥈', '🥉'];
+            return `
+                <div class="ranking-item">
+                    <div class="ranking-medal">${medals[index]}</div>
+                    <div class="ranking-name">${item.name}</div>
+                    <div class="ranking-cotas"><strong>${item.cotas.toLocaleString()}</strong> cotas</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function updateAwardedCotas(awardedCotas) {
+        const awardedList = document.querySelector('.awarded-list');
+        awardedList.innerHTML = awardedCotas.map(cota => `
+            <div class="awarded-item">
+                <div class="awarded-prize">
+                    <span class="prize-label">Prêmio - ${cota.prize} R$</span>
+                </div>
+                <span class="cota-status ${cota.sold ? 'cota-sold' : 'cota-available'}">
+                    ${cota.sold ? 'Comprado' : 'Disponível'}
+                </span>
+                <span class="cota-number">Cota ${String(cota.number).padStart(5, '0')}</span>
+                ${cota.sold && cota.owner ? `<span class="user-tag">👤 ${cota.owner}</span>` : ''}
+            </div>
+        `).join('');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+        resetPurchaseForm();
+    }
+
+    // Função de login
+    function login(event) {
+        event.preventDefault();
+        const email = document.getElementById('emailInput').value;
+        const name = document.getElementById('nameInput').value;
+
+        if (!validateEmail(email)) {
+            alert('Email inválido!');
+            return;
+        }
+
+        currentUser = { email: email, name: name };
+        
+        // Atualizar interface
+        document.getElementById('userName').textContent = name;
+        document.getElementById('userEmail').textContent = email;
+        document.getElementById('userInfo').classList.add('active');
+        
+        // Atualizar botões de auth
+        const authBtn = document.getElementById('authBtn');
+        const mobileAuthBtn = document.getElementById('mobileAuthBtn');
+        
+        authBtn.textContent = 'Sair';
+        authBtn.onclick = logout;
+        mobileAuthBtn.textContent = 'Sair';
+        mobileAuthBtn.onclick = logout;
+
+        closeModal('loginModal');
+        alert('Login realizado com sucesso!');
+    }
+
+    function logout() {
+        currentUser = null;
+        document.getElementById('userInfo').classList.remove('active');
+        
+        const authBtn = document.getElementById('authBtn');
+        const mobileAuthBtn = document.getElementById('mobileAuthBtn');
+        
+        authBtn.textContent = 'Entrar';
+        authBtn.onclick = openLoginModal;
+        mobileAuthBtn.textContent = 'Entrar';
+        mobileAuthBtn.onclick = openLoginModal;
+        
+        alert('Logout realizado com sucesso!');
+    }
+
+    // Validação de Email
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    // Funções de compra
+    function setQuantity(qty) {
+        selectedQuantity = qty;
+        document.getElementById('quantity').value = qty;
+        
+        // Atualizar botões selecionados
+        document.querySelectorAll('.quantity-btn-option').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+        
+        updatePurchaseDisplay();
+    }
+
+    function updateQuantityFromInput() {
+        const input = document.getElementById('quantity');
+        selectedQuantity = parseInt(input.value) || 1;
+        if (selectedQuantity < 1) {
+            selectedQuantity = 1;
+            input.value = 1;
+        }
+        updatePurchaseDisplay();
+    }
+
+    function increaseQuantity() {
+        selectedQuantity++;
+        document.getElementById('quantity').value = selectedQuantity;
+        updatePurchaseDisplay();
+    }
+
+    function decreaseQuantity() {
+        if (selectedQuantity > 1) {
+            selectedQuantity--;
+            document.getElementById('quantity').value = selectedQuantity;
+            updatePurchaseDisplay();
+        }
+    }
+
+    function updatePurchaseDisplay() {
+        const total = currentRaffle.price * selectedQuantity;
+        document.getElementById('totalPrice').textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+        
+        // Mostrar botão para gerar números
+        document.getElementById('generateNumbersBtn').style.display = 'block';
+        generateRandomNumbers();
+    }
+
+    function generateRandomNumbers() {
+        const raffleInfo = raffleData[currentRaffle.name];
+        const availableNumbers = [];
+        
+        // Gerar lista de números disponíveis
+        for (let i = 1; i <= raffleInfo.totalNumbers; i++) {
+            if (!raffleInfo.soldNumbers.has(i)) {
+                availableNumbers.push(i);
+            }
+        }
+
+        // Selecionar números aleatórios
+        selectedNumbers = [];
+        for (let i = 0; i < selectedQuantity && availableNumbers.length > 0; i++) {
+            const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+            const selectedNumber = availableNumbers.splice(randomIndex, 1)[0];
+            selectedNumbers.push(selectedNumber);
+        }
+
+        // Ordenar números
+        selectedNumbers.sort((a, b) => a - b);
+
+        // Atualizar display
+        const numbersList = document.getElementById('numbersList');
+        numbersList.innerHTML = selectedNumbers.map(num => 
+            `<span class="number-badge">${num.toString().padStart(4, '0')}</span>`
+        ).join('');
+    }
+
+    // Funções de pagamento
+    function selectPayment(method) {
+        selectedPaymentMethod = method;
+        
+        // Atualizar visual dos botões
+        document.querySelectorAll('.payment-method').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        event.target.closest('.payment-method').classList.add('selected');
+
+        // Mostrar/esconder formas de pagamento
+        document.getElementById('pixInfo').classList.remove('active');
+        document.getElementById('cardForm').classList.remove('active');
+
+        if (method === 'pix') {
+            document.getElementById('pixInfo').classList.add('active');
+            generatePixCode();
+        } else if (method === 'card') {
+            document.getElementById('cardForm').classList.add('active');
+        }
+    }
+
+    function generatePixCode() {
+        const total = currentRaffle.price * selectedQuantity;
+        const timestamp = Date.now();
+        const pixCode = `00020126580014BR.GOV.BCB.PIX0136123e4567-e12b-12d1-a456-426614174000520400005303986540${total.toFixed(2)}5802BR5925RIFAMAX LTDA6009SAO PAULO62140510RIFA${timestamp}6304`;
+        document.getElementById('pixCode').textContent = pixCode;
+    }
+
+    function copyPixCode() {
+        const pixCode = document.getElementById('pixCode').textContent;
+        navigator.clipboard.writeText(pixCode).then(() => {
+            alert('Código PIX copiado para a área de transferência!');
+        });
+    }
+
+    function processCardPayment(event) {
+        event.preventDefault();
+        
+        const cardNumber = document.getElementById('cardNumber').value;
+        const cardExpiry = document.getElementById('cardExpiry').value;
+        const cardCvv = document.getElementById('cardCvv').value;
+        const cardName = document.getElementById('cardName').value;
+
+        // Simulação de processamento
+        const loadingBtn = event.target.querySelector('button[type="submit"]');
+        loadingBtn.textContent = 'Processando...';
+        loadingBtn.disabled = true;
+
+        setTimeout(() => {
+            // Adicionar números vendidos à rifa
+            const raffleInfo = raffleData[currentRaffle.name];
+            selectedNumbers.forEach(num => {
+                raffleInfo.soldNumbers.add(num);
+            });
+
+            // Adicionar aos tickets do usuário
+            if (!userTickets[currentUser.email]) {
+                userTickets[currentUser.email] = [];
+            }
+            userTickets[currentUser.email].push({
+                raffle: currentRaffle.name,
+                numbers: [...selectedNumbers],
+                date: new Date().toLocaleDateString('pt-BR'),
+                status: 'Ativo'
+            });
+
+            alert(`Pagamento aprovado! Seus números: ${selectedNumbers.join(', ')}`);
+            closeModal('purchaseModal');
+            loadingBtn.textContent = 'Finalizar Pagamento';
+            loadingBtn.disabled = false;
+        }, 3000);
+    }
+
+    function resetPurchaseForm() {
+        selectedQuantity = 1;
+        selectedNumbers = [];
+        selectedPaymentMethod = null;
+        
+        document.getElementById('quantity').value = 1;
+        
+        document.querySelectorAll('.payment-method').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        
+        document.querySelectorAll('.quantity-btn-option').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        
+        document.getElementById('pixInfo').classList.remove('active');
+        document.getElementById('cardForm').classList.remove('active');
+    }
+
+    // Buscar tickets do usuário
+    function searchTickets() {
+        const email = document.getElementById('emailSearch').value;
+        const results = document.getElementById('searchResults');
+        const ticketsList = document.getElementById('ticketsList');
+        
+        if (!validateEmail(email)) {
+            alert('Email inválido!');
+            return;
+        }
+
+        const tickets = userTickets[email];
+        
+        if (tickets && tickets.length > 0) {
+            ticketsList.innerHTML = tickets.map(ticket => `
+                <div class="winner-card">
+                    <div class="winner-prize">${ticket.raffle}</div>
+                    <div class="winner-info">
+                        <strong>Números:</strong> ${ticket.numbers.map(n => n.toString().padStart(4, '0')).join(', ')}<br>
+                        <strong>Data da Compra:</strong> ${ticket.date}<br>
+                        <strong>Status:</strong> ${ticket.status}
+                    </div>
+                </div>
+            `).join('');
+            results.classList.add('active');
+        } else {
+            ticketsList.innerHTML = '<p style="text-align: center; color: #666;">Nenhuma cota encontrada para este email.</p>';
+            results.classList.add('active');
+        }
+    }
+
+    // Enviar contato
+    function sendContact(event) {
+        event.preventDefault();
+        
+        const name = document.getElementById('contactName').value;
+        const email = document.getElementById('contactEmail').value;
+        const phone = document.getElementById('contactPhone').value;
+        const subject = document.getElementById('contactSubject').value;
+        const message = document.getElementById('contactMessage').value;
+        
+        // Simulação de envio
+        const submitBtn = event.target.querySelector('button[type="submit"]');
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            event.target.reset();
+            submitBtn.textContent = 'Enviar Mensagem';
+            submitBtn.disabled = false;
+        }, 2000);
+    }
+
+    // Formatação de inputs de cartão
+    document.addEventListener('DOMContentLoaded', function() {
+        const cardNumber = document.getElementById('cardNumber');
+        const cardExpiry = document.getElementById('cardExpiry');
+        const cardCvv = document.getElementById('cardCvv');
+        
+        if (cardNumber) {
+            cardNumber.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^\d]/g, '');
+                value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+                e.target.value = value;
+            });
+        }
+
+        if (cardExpiry) {
+            cardExpiry.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^\d]/g, '');
+                if (value.length >= 2) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                e.target.value = value;
+            });
+        }
+
+        if (cardCvv) {
+            cardCvv.addEventListener('input', function(e) {
+                e.target.value = e.target.value.replace(/[^\d]/g, '');
+            });
+        }
+    });
+
+    // Animação do header no scroll
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 100) {
+            header.style.background = 'rgba(0, 0, 0, 0.98)';
+        } else {
+            header.style.background = 'rgba(0, 0, 0, 0.95)';
+        }
+    });
+
+    // Animação de entrada dos elementos
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Atualização dinâmica das barras de progresso
+    function updateProgressBars() {
+        const progressBars = document.querySelectorAll('.progress-fill');
+        progressBars.forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 500);
+        });
+    }
+
+    // Inicializar quando a página carregar
+    window.addEventListener('load', () => {
+        setTimeout(updateProgressBars, 1000);
+    });
+
+    // Fechar modal ao clicar fora
+    window.addEventListener('click', (e) => {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                resetPurchaseForm();
+            }
+        });
+    });
+</script>
+</body>
+</html>
